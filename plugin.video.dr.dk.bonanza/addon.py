@@ -1,7 +1,6 @@
 # coding=utf-8
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import sys, urllib2, re, os, time
-from resources.lib.simplejson import simplejson
+import sys, urllib2, re, os, time, simplejson
 from cgi import parse_qs
 
 __addon__ = xbmcaddon.Addon(id='plugin.video.dr.dk.bonanza')
