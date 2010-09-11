@@ -80,7 +80,7 @@ def playVideo(id):
 
 		m = re.search('video="([^"]+)"', playlist)
 
-		xbmc.Player().play(url)
+		xbmc.Player().play(m.group(1))
 
 def loadJson():
 	json_path = os.path.join(SCRIPT_DATA_PATH, 'video.js')
