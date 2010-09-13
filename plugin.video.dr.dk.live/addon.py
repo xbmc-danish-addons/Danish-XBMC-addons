@@ -18,7 +18,7 @@ __channels__ = [
 def showChannels():
 
 	for idx, c in enumerate(__channels__):
-		icon = os.getcwd() + "/resources/logos/" + c['name'] + ".png"
+		icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
 
 		item = xbmcgui.ListItem(c['name'], iconImage = icon)
 		url = __path__ + '?idx=' + str(idx)
