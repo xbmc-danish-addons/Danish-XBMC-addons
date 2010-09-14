@@ -1,11 +1,10 @@
 # coding = 'utf-8'
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import sys, urllib2, re, os, time, simplejson, codecs
+import sys, urllib2, re, os, time, simplejson
 from cgi import parse_qs
 from htmlentitydefs import name2codepoint as n2cp
 
 __addon__ = xbmcaddon.Addon(id='plugin.video.tv2.dk')
-__language__ = __addon__.getLocalizedString
 __path__ = sys.argv[0]
 __handle__ = int(sys.argv[1])
 params = parse_qs(sys.argv[2][1:])
@@ -31,9 +30,7 @@ BASE_URL = 'http://video.tv2.dk/js/video-list.js.php/index.js'
 SCRIPT_DATA_PATH = xbmc.translatePath(__addon__.getAddonInfo("Profile"))
 
 def showOverview():
-
 	json = loadJson()
-
 	icon = os.path.join(os.getcwd(), 'icon.png')
 
 	for key in json.keys():
@@ -67,6 +64,7 @@ def showCategory(key):
 		item = xbmcgui.ListItem(infoLabels['title'], iconImage = e['img'])
 		item.setInfo('video', infoLabels)
 		url = __path__ + '?id=' + str(e['id'])
+
 		xbmcplugin.addDirectoryItem(__handle__, url, item)
 
 	xbmcplugin.setContent(__handle__, 'episodes')
@@ -95,38 +93,25 @@ def loadJson():
 		url = urllib2.urlopen(BASE_URL)
 		json = url.read()
 		url.close()
-
-		# fix html encodes 
-#		json = decode_htmlentities(json)
-
+		
 		# get json part of js file
 		m = re.search('data = ({.*)}', json, re.DOTALL)
 		# fixup json parsing with simplejson, ie. replace ' with "
 		json = re.sub(r'\'([\w-]+)\':', r'"\1":', m.group(1))
 
-		f = codecs.open(json_path, 'w', 'UTF-8')
+		f = open(json_path, 'w')
 		f.write(json)
 		f.close()
 
 	else:
-		f = codecs.open(json_path, 'r', 'UTF-8')
+		f = open(json_path, 'r')
 		json = f.read()
 		f.close()
 
 	return simplejson.loads(json)
-
+	
 def decode_htmlentities(string):
-    """
-Decode HTML entities–hex, decimal, or named–in a string
-@see http://snippets.dzone.com/posts/show/4569
->>> u = u'E tu vivrai nel terrore - L&#x27;aldil&#xE0; (1981)'
->>> print decode_htmlentities(u).encode('UTF-8')
-E tu vivrai nel terrore - L'aldilà (1981)
->>> print decode_htmlentities("l&#39;eau")
-l'eau
->>> print decode_htmlentities("foo &lt; bar")
-foo < bar
-"""
+
     def substitute_entity(match):
         ent = match.group(3)
         if match.group(1) == "#":
