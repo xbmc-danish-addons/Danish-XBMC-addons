@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addons>
+<addon
+  id="plugin.video.dr.dk.onside.tv"
+  version="1.0.0"
+  name="Onside TV"
+  provider-name="ariba [mail@nielsriber.dk]">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en"></summary>
+    <summary lang="da"></summary>
+    <description lang="en"></description>
+    <description lang="da"></description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>
+  </extension>
+</addon>
+</addons>
