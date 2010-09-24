@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.twinther" name="tommy.winther.nu XBMC Add-ons" version="1.0.0" provider-name="twinther [tommy@winther.nu]">
+	<extension point="xbmc.addon.repository" name="tommy.winther.nu Add-on Repository">
+		<info compressed="false">http://tommy.winther.nu/xbmcrepo/addons.xml</info>
+		<checksum></checksum>
+		<datadir zip="false">http://tommy.winther.nu/xbmcrepo/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Add-ons from tommy.winther.nu</summary>
+		<description>Download and install add-ons from tommy.winther.nu addon repository.[CR]</description>
+		<disclaimer>Some of these addons may not work outside of Denmark, due to restrictions enforced by the content providers.</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+	id="plugin.video.dr.dk.live"
+	version="1.0.1"
+	name="DR nu"
+	provider-name="twinther [tommy@winther.nu]">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Watch DRs 5 live streams</summary>
+		<summary lang="da">Se DRs 5 live streams</summary>
+		<description lang="en">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang</description>
+		<description lang="da">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang</description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>        
+	</extension>
+</addon>
