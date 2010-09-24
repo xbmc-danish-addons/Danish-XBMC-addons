@@ -21,6 +21,20 @@
   </extension>
 </addon>
 
+<addon id="repository.danish.addons" name="Danish XBMC Addons" version="1.0.0" provider-name="ariba [mail@nielsriber.dk], twinther [tommy@winther.nu]">
+	<extension point="xbmc.addon.repository" name="Danish XBMC Addon Repository">
+		<info compressed="false">http://github.com/xbmc-danish-addons/Danish-XBMC-addons/raw/master/addons.xml</info>
+		<checksum>http://github.com/xbmc-danish-addons/Danish-XBMC-addons/raw/master/addons.xml.md5</checksum>
+		<datadir zip="false">http://github.com/xbmc-danish-addons/Danish-XBMC-addons/raw/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Danish Addons</summary>
+		<description>Download and install addons for Danish video source, etc.</description>
+		<disclaimer>Some of these addons may not work outside of Denmark, due to restrictions enforced by the content providers.</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon
 	id="plugin.video.tv2.dk"
 	version="0.1.1"
