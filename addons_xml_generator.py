@@ -26,8 +26,8 @@ class Generator:
         # loop thru and add each addons addon.xml file
         for addon in addons:
             try:
-                # skip any file or .svn folder
-                if ( not os.path.isdir( addon ) or addon == ".svn" ): continue
+                # skip any file or .git folder
+                if ( not os.path.isdir( addon ) or addon == ".git" ): continue
                 # create path
                 _path = os.path.join( addon, "addon.xml" )
                 # split lines for stripping
