@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.danish.addons.library"
+<addon id="script.module.danishaddons"
        name="Library module for Danish addons"
        version="1.0.0"
        provider-name="twinther [tommy@winther.nu]">
