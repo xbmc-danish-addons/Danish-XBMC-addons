@@ -1,0 +1,6 @@
+[B]Version 1.0.1[/B]
+- Changed plugin ID to plugin.video.dr.dk.podcast
+- Now uses libary module for Danish addons
+
+[B]Version 1.0.0[/B]
+- Initial version
