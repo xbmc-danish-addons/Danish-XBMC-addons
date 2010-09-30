@@ -11,8 +11,8 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en"></summary>
-    <summary lang="da"></summary>
+    <summary lang="en">Watch the greatest goals and interviews from Onside.tv</summary>
+    <summary lang="da">Se de bedste mål og interviews fra Onside.tv</summary>
     <description lang="en"></description>
     <description lang="da"></description>
 		<license>GPL 2.0</license>
