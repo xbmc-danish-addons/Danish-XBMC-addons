@@ -4,6 +4,8 @@ import sys
 import xbmc
 import xbmcaddon
 
+# import submodules to make them available
+import info
 import web
 
 # Convenience methods
@@ -20,6 +22,9 @@ def parseParams(input):
 			params[pair] = None
 
 	return params
+
+def getAddonsDataPath():
+	return ADDON_DATA_PATH
 
 # Initialize convenience constants
 ADDON_PATH = sys.argv[0]

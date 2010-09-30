@@ -1,9 +1,8 @@
+import os
 import time
 import urllib2
 
 def downloadAndCacheUrl(url, cacheFile, cacheMinutes):
-	print cacheFile
-
 	try:
 		cachedOn = os.path.getmtime(cacheFile)
 	except:
