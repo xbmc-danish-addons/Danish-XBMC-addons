@@ -16,6 +16,7 @@ def CATEGORIES():
         response = urllib2.urlopen(req)
         link=response.read()
         response.close()
+	
         match=re.compile('class="right_aligned_date"><a href="(.*?)" class="video_archive_link">(.*?)</a>', re.DOTALL).findall(link)
 
         for url, name in match:
@@ -32,9 +33,12 @@ def PROGRAMLIST(url):
         link=response.read()
         response.close()
         match=re.compile('class="item(?: item_first)?">.*?<a href="(.*?)".*?<img src="(.*?)".*?class="video-title">(.*?)</div>',re.DOTALL).findall(link)
-
+	
         for url, image, title in match:
 		addDir(title, BASE_URL + url,'playfile', image)
+	nextlink = re.search('class="next" href="(.*?)"',link,re.DOTALL)
+	if nextlink:
+		addDir('Næste side >>', BASE_URL + nextlink.group(1), "subcat", "")
 	xbmcplugin.endOfDirectory(__handle__)
 
 def PLAYPROGRAM(url):
