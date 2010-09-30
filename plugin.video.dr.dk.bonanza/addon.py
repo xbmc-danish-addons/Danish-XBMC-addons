@@ -1,55 +1,32 @@
 # coding=utf-8
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import sys, urllib2, re, os, time, simplejson
-from cgi import parse_qs
 
-__addon__ = xbmcaddon.Addon(id='plugin.video.dr.dk.bonanza')
-__language__ = __addon__.getLocalizedString
-__path__ = sys.argv[0]
-__handle__ = int(sys.argv[1])
+from danishaddons import *
 
 BASE_URL = 'http://www.dr.dk/Bonanza/'
-SCRIPT_DATA_PATH = xbmc.translatePath(__addon__.getAddonInfo("Profile"))
-
 
 def search():
-	keyboard = xbmc.Keyboard('', __language__(30001))
+	keyboard = xbmc.Keyboard('', msg(30001))
 	keyboard.doModal()
 	if (keyboard.isConfirmed()):
-		html = urllib2.urlopen('http://www.dr.dk/bonanza/search.htm?&type=video&limit=120&needle=' + keyboard.getText().replace(' ', '+'))
-		addContent(html.read())
-		html.close()
-
-		xbmcplugin.endOfDirectory(__handle__)
-		xbmcplugin.setContent(__handle__, 'episodes')
+		html = web.downloadAndCacheUrl('http://www.dr.dk/bonanza/search.htm?&type=video&limit=120&needle=' + keyboard.getText().replace(' ', '+'),
+			os.path.join(ADDON_DATA_PATH, 'search.html'), 0) # don't cache search results
+		addContent(html)
+		xbmcplugin.endOfDirectory(ADDON_HANDLE)
+		xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
 
 
 def showCategories():
-	xbmcplugin.setContent(__handle__, 'tvshows')
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
 
-	cache_path = os.path.join(SCRIPT_DATA_PATH, 'categories.html')
-	try: date = os.path.getmtime( cache_path )
-	except: date = 0
-	refresh = ( ( time.time() - ( 24 * 60 * 60 ) ) >= date )
-	if(refresh):
-		url = urllib2.urlopen(BASE_URL)
-		html = url.read()
-		url.close()
-
-		f = open(cache_path, 'w')
-		f.write(html)
-		f.close()
-	else:
-		f = open(cache_path)
-		html = f.read()
-		f.close()
-
+	html = web.downloadAndCacheUrl(BASE_URL, os.path.join(ADDON_DATA_PATH, 'categories.html'), 24 * 60)
 	icon = os.path.join(os.getcwd(), 'icon.png')
 
-	item = xbmcgui.ListItem(__language__(30001), iconImage = icon)
-	xbmcplugin.addDirectoryItem(__handle__, __path__ + '?mode=search', item, True)
-	item = xbmcgui.ListItem(__language__(30002), iconImage = icon)
-	xbmcplugin.addDirectoryItem(__handle__, __path__ + '?mode=recommend', item, True)
+	item = xbmcgui.ListItem(msg(30001), iconImage = icon)
+	xbmcplugin.addDirectoryItem(ADDON_HANDLE, ADDON_PATH + '?mode=search', item, True)
+	item = xbmcgui.ListItem(msg(30002), iconImage = icon)
+	xbmcplugin.addDirectoryItem(ADDON_HANDLE, ADDON_PATH + '?mode=recommend', item, True)
 
 	for m in re.finditer('<a href="(/Bonanza/kategori/.*\.htm)">(.*)</a>', html):
 		path = m.group(1)
@@ -59,79 +36,48 @@ def showCategories():
 		item.setInfo(type = 'video', infoLabels = {
 			'title' : title
 		})
-		url = __path__ + '?mode=subcat&url=http://www.dr.dk' + path + '&title=' + title
-		xbmcplugin.addDirectoryItem(__handle__, url, item, True)
+		url = ADDON_PATH + '?mode=subcat&url=http://www.dr.dk' + path + '&title=' + title
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
-	xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_TITLE)
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_TITLE)
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def showRecommendations():
-	xbmcplugin.setContent(__handle__, 'tvshows')
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
 
-	cache_path = os.path.join(SCRIPT_DATA_PATH, 'recommendations.html')
-	try: date = os.path.getmtime( cache_path )
-	except: date = 0
-	refresh = ( ( time.time() - ( 24 * 60 * 60 ) ) >= date )
-	if(refresh):
-		url = urllib2.urlopen(BASE_URL)
-		html = url.read()
-		url.close()
-
-		f = open(cache_path, 'w')
-		f.write(html)
-		f.close()
-	else:
-		f = open(cache_path)
-		html = f.read()
-		f.close()
+	html = web.downloadAndCacheUrl(BASE_URL, os.path.join(ADDON_DATA_PATH, 'recommendations.html'), 24 * 60)
 
 	# remove anything but 'Redaktionens favoritter'
 	html = html[html.find('<span class="tabTitle">Redaktionens favoritter</span>'):]
 	addSubCategories(html)
-	xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_TITLE)
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_TITLE)
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def showSubCategories(url, title):
-	xbmcplugin.setContent(__handle__, 'tvshows')
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
 
-	cache_path = os.path.join(SCRIPT_DATA_PATH, title + '.html')
-	try: date = os.path.getmtime( cache_path )
-	except: date = 0
-	refresh = ( ( time.time() - ( 24 * 60 * 60 ) ) >= date )
-	if(refresh):
-		url = urllib2.urlopen(url.replace(' ', '+'))
-		html = url.read()
-		url.close()
-
-		f = open(cache_path, 'w')
-		f.write(html)
-		f.close()
-	else:
-		f = open(cache_path)
-		html = f.read()
-		f.close()
+	html = web.downloadAndCacheUrl(url.replace(' ', '+'), os.path.join(ADDON_DATA_PATH, 'category-' + title + '.html'), 24 * 60)
 
 	# remove 'Redaktionens favoritter' as they are located on every page
 	html = html[:html.find('<span class="tabTitle">Redaktionens favoritter</span>')]
 
 	addSubCategories(html)
-	xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_TITLE)
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_TITLE)
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 def showContent(url, title):
-	html = urllib2.urlopen(url)
-	addContent(html.read())
-	html.close()
+	html = web.downloadAndCacheUrl(url, os.path.join(ADDON_DATA_PATH, 'content-' + title + '.html'), 60)	
+	addContent(html)
 
-	xbmcplugin.endOfDirectory(__handle__)
-	xbmcplugin.setContent(__handle__, 'episodes')
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
+	xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
 
 
 
 def addSubCategories(html):
-	xbmcplugin.setContent(__handle__, 'tvshows')
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
 
 	for m in re.finditer('<a href="(http://www\.dr\.dk/bonanza/serie/[^\.]+\.htm)"[^>]+>..<img src="(http://downol\.dr\.dk/download/bonanza/collectionThumbs/[^"]+)"[^>]+>..<b>([^<]+)</b>..<span>([^<]+)</span>..</a>', html, re.DOTALL):
 		url = m.group(1)
@@ -144,8 +90,8 @@ def addSubCategories(html):
 			'title' : title,
 			'plot' : description
 		})
-		url = __path__ + '?mode=content&url=' + url + '&title=' + title
-		xbmcplugin.addDirectoryItem(__handle__, url, item, True)
+		url = ADDON_PATH + '?mode=content&url=' + url + '&title=' + title
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
 
 def addContent(html):
@@ -167,8 +113,8 @@ def addContent(html):
 		if(json['FirstPublished'] != None):
 			infoLabels['year'] = int(json['FirstPublished'][:4])
 		if(json['Duration'] != None):
-			infoLabels['duration'] = int(json['Duration']) / 60000
-		
+			infoLabels['duration'] = info.secondsToDuration(int(json['Duration']) / 1000)
+
 		item = xbmcgui.ListItem(json['Title'], iconImage = findFileLocation(json, 'Thumb'))
 		item.setInfo('video', infoLabels)
 
@@ -180,7 +126,7 @@ def addContent(html):
 
 		# patch rtmp_url to work with mplayer
 		rtmp_url = rtmp_url.replace('rtmp://vod.dr.dk/', 'rtmp://vod.dr.dk/bonanza/')
-		xbmcplugin.addDirectoryItem(__handle__, rtmp_url, item, False)
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, rtmp_url, item, False)
 
 
 
@@ -191,18 +137,13 @@ def findFileLocation(json, type):
 	return None	
 
 
-
-if (not os.path.isdir(os.path.dirname(SCRIPT_DATA_PATH))):
-	os.makedirs(os.path.dirname(SCRIPT_DATA_PATH))
-
-params = parse_qs(sys.argv[2][1:])
-if(params.has_key('mode') and params['mode'][0] == 'subcat'):
-	showSubCategories(params['url'][0], params['title'][0])
-elif(params.has_key('mode') and params['mode'][0] == 'content'):
-	showContent(params['url'][0], params['title'][0])
-elif(params.has_key('mode') and params['mode'][0] == 'search'):
+if(ADDON_PARAMS.has_key('mode') and ADDON_PARAMS['mode'] == 'subcat'):
+	showSubCategories(ADDON_PARAMS['url'], ADDON_PARAMS['title'])
+elif(ADDON_PARAMS.has_key('mode') and ADDON_PARAMS['mode'] == 'content'):
+	showContent(ADDON_PARAMS['url'], ADDON_PARAMS['title'])
+elif(ADDON_PARAMS.has_key('mode') and ADDON_PARAMS['mode'] == 'search'):
 	search()
-elif(params.has_key('mode') and params['mode'][0] == 'recommend'):
+elif(ADDON_PARAMS.has_key('mode') and ADDON_PARAMS['mode'] == 'recommend'):
 	showRecommendations()
 else:
 	showCategories()

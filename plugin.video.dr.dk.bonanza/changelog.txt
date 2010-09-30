@@ -1,2 +1,6 @@
+[b]Version 1.0.1[/B]
+- Fixed parsing and display of clip duration
+- Now uses library module for Danish addons
+
 [B]Version 1.0.0[/B]
 - Initial version
