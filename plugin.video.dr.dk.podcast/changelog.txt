@@ -1,3 +1,7 @@
+[B]Version 1.0.2[/B]
+- Fixed clip duration
+- Fixed various errors parsing clip information
+
 [B]Version 1.0.1[/B]
 - Changed plugin ID to plugin.video.dr.dk.podcast
 - Now uses libary module for Danish addons

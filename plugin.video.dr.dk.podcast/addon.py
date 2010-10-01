@@ -49,18 +49,25 @@ def showFeed(key):
 
 	for e in d.entries:
 		item = xbmcgui.ListItem(e.title, iconImage = details['image_path'])
-		item.setLabel2(e.description)
-		item.setInfo(type = 'video', infoLabels = {
+		try:
+			description = e.description
+		except AttributeError:
+			description = 'No description'
+
+		infoLabels = {
 			'tvshowtitle' : d.channel.title,
 			'title' : e.title,
-			'plot' : e.description,
-			'duration' : parseDuration(e.itunes_duration),
-			'aired' : parsePubDate(e.updated_parsed),
-			'year' : e.updated_parsed[0],
+			'plot' : description,
+			'duration' : e.itunes_duration,
 			'director' : e.author,
 			'writer' : e.author
-			
-		})
+		}
+		if(e.updated_parsed != None):
+			infoLabels['aired'] = parsePubDate(e.updated_parsed)
+			infoLabels['year'] = e.updated_parsed[0]
+
+		item.setLabel2(description)
+		item.setInfo('video', infoLabels)
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, e.enclosures[0].href, item, False)
 
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
@@ -88,12 +95,6 @@ def getFeedDetails(key):
 		f.close()
 
 	return details
-
-def parseDuration(duration):
-	print duration
-	if(duration[:3] == '00:'):
-		duration = duration[3:]
-	return duration[:duration.find(':')]
 
 def parsePubDate(pubDate):
 	return '%d-%d-%d' % (pubDate[0], pubDate[1], pubDate[2])
