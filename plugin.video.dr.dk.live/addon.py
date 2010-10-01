@@ -1,13 +1,8 @@
+import os
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import sys, os
-from cgi import parse_qs
+from danishaddons import *
 
-__addon__ = xbmcaddon.Addon(id='plugin.video.dr.dk.live')
-__path__ = sys.argv[0]
-__handle__ = int(sys.argv[1])
-params = parse_qs(sys.argv[2][1:])
-
-__channels__ = [
+CHANNELS = [
 	{'name' : 'DR1', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr01astream3'},
 	{'name' : 'DR2', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr02astream3'},
 	{'name' : 'DR Update', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr03astream3'},
@@ -17,24 +12,24 @@ __channels__ = [
 
 def showChannels():
 
-	for idx, c in enumerate(__channels__):
+	for idx, c in enumerate(CHANNELS):
 		icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
 
 		item = xbmcgui.ListItem(c['name'], iconImage = icon)
-		url = __path__ + '?idx=' + str(idx)
-		xbmcplugin.addDirectoryItem(__handle__, url, item, True)
+		url = ADDON_PATH + '?idx=' + str(idx)
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 def playChannel(idx):
-	c = __channels__[int(idx)]
+	c = CHANNELS[int(idx)]
 	item = xbmcgui.ListItem(c['name'])
 	item.setProperty("IsLive", "true")
 	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(c['url'], item)
 
 
-if(params.has_key('idx')):
-	playChannel(params['idx'][0])
+if(ADDON_PARAMS.has_key('idx')):
+	playChannel(ADDON_PARAMS['idx'])
 else:
 	showChannels()
 

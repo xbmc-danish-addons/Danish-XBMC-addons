@@ -1,3 +1,6 @@
+[B]Versino 1.0.2[/B]
+- Now uses library module for Danish addons
+
 [B]Versino 1.0.1[/B]
 - Fixed logos
 

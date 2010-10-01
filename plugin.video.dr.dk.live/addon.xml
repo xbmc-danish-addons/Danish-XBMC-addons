@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
 	id="plugin.video.dr.dk.live"
-	version="1.0.1"
+	version="1.0.2"
 	name="DR nu"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
