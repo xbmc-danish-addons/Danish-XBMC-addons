@@ -1,15 +1,11 @@
 # coding = 'utf-8'
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import sys, urllib2, re, os, time, simplejson
-from cgi import parse_qs
+import urllib2, re, os, time, simplejson
 from htmlentitydefs import name2codepoint as n2cp
 
-__addon__ = xbmcaddon.Addon(id='plugin.video.tv2.dk')
-__path__ = sys.argv[0]
-__handle__ = int(sys.argv[1])
-params = parse_qs(sys.argv[2][1:])
+from danishaddons import *
 
-__key2title__ = {
+KEY_TO_TITLE = {
 	'beep' : 'Beep - Gadgets',
 	'sport' : 'Sporten',
 	'station2' : 'Station 2',
@@ -27,24 +23,23 @@ __key2title__ = {
 }
 
 BASE_URL = 'http://video.tv2.dk/js/video-list.js.php/index.js'
-SCRIPT_DATA_PATH = xbmc.translatePath(__addon__.getAddonInfo("Profile"))
 
 def showOverview():
 	json = loadJson()
 	icon = os.path.join(os.getcwd(), 'icon.png')
 
 	for key in json.keys():
-		if(__key2title__.has_key(key)):
-			item = xbmcgui.ListItem(__key2title__[key], iconImage = icon)
+		if(KEY_TO_TITLE.has_key(key)):
+			item = xbmcgui.ListItem(KEY_TO_TITLE[key], iconImage = icon)
 		else:
 			item = xbmcgui.ListItem(key, iconImage = icon)
 			
-		url = __path__ + '?key=' + key
-		xbmcplugin.addDirectoryItem(__handle__, url, item, True)
+		url = ADDON_PATH + '?key=' + key
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
-	xbmcplugin.setContent(__handle__, 'tvshows')
-	xbmcplugin.addSortMethod(__handle__, xbmcplugin.SORT_METHOD_TITLE)
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_TITLE)
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def showCategory(key):
@@ -63,12 +58,12 @@ def showCategory(key):
 
 		item = xbmcgui.ListItem(infoLabels['title'], iconImage = e['img'])
 		item.setInfo('video', infoLabels)
-		url = __path__ + '?id=' + str(e['id'])
+		url = ADDON_PATH + '?id=' + str(e['id'])
 
-		xbmcplugin.addDirectoryItem(__handle__, url, item)
+		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item)
 
-	xbmcplugin.setContent(__handle__, 'episodes')
-	xbmcplugin.endOfDirectory(__handle__)
+	xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
+	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def playVideo(id):
@@ -81,32 +76,13 @@ def playVideo(id):
 		xbmc.Player().play(m.group(1))
 
 def loadJson():
-	json_path = os.path.join(SCRIPT_DATA_PATH, 'video.js')
-	try:
-		date = os.path.getmtime( json_path )
-	except:
-		date = 0
-
-	# cache for one hour
-	refresh = ( ( time.time() - ( 60 * 60 ) ) >= date )
-	if(refresh):
-		url = urllib2.urlopen(BASE_URL)
-		json = url.read()
-		url.close()
+	json_path = os.path.join(ADDON_DATA_PATH, 'video.js')
+	json = web.downloadAndCacheUrl(BASE_URL, json_path, 60)
 		
-		# get json part of js file
-		m = re.search('data = ({.*)}', json, re.DOTALL)
-		# fixup json parsing with simplejson, ie. replace ' with "
-		json = re.sub(r'\'([\w-]+)\':', r'"\1":', m.group(1))
-
-		f = open(json_path, 'w')
-		f.write(json)
-		f.close()
-
-	else:
-		f = open(json_path, 'r')
-		json = f.read()
-		f.close()
+	# get json part of js file
+	m = re.search('data = ({.*)}', json, re.DOTALL)
+	# fixup json parsing with simplejson, ie. replace ' with "
+	json = re.sub(r'\'([\w-]+)\':', r'"\1":', m.group(1))
 
 	return simplejson.loads(json)
 	
@@ -132,14 +108,10 @@ def decode_htmlentities(string):
     return entity_re.subn(substitute_entity, string)[0]
 
 
-
-if (not os.path.isdir(os.path.dirname(SCRIPT_DATA_PATH))):
-	os.makedirs(os.path.dirname(SCRIPT_DATA_PATH))
-
-if(params.has_key('key')):
-	showCategory(params['key'][0])
-elif(params.has_key('id')):
-	playVideo(params['id'][0])
+if(ADDON_PARAMS.has_key('key')):
+	showCategory(ADDON_PARAMS['key'])
+elif(ADDON_PARAMS.has_key('id')):
+	playVideo(ADDON_PARAMS['id'])
 else:
 	showOverview()
 

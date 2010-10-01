@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
 	id="plugin.video.tv2.dk"
-	version="0.1.1"
+	version="0.1.2"
 	name="TV2 Video"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
