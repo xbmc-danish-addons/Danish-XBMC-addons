@@ -1,5 +1,6 @@
 [B]Version 0.1.2[/B]
 - Now uses library module for Danish addons
+- Added support for geo protected video clips such as Tour de France
 
 [B]Version 0.1.1[/B]
 - Fix loading on Windows

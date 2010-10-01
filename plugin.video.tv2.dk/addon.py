@@ -1,6 +1,6 @@
 # coding = 'utf-8'
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-import urllib2, re, os, time, simplejson
+import urllib, urllib2, re, os, time, simplejson
 from htmlentitydefs import name2codepoint as n2cp
 
 from danishaddons import *
@@ -67,13 +67,23 @@ def showCategory(key):
 
 
 def playVideo(id):
+		# retrieve masquarade playlist
 		url = urllib2.urlopen('http://common.tv2.dk/flashplayer/playlistSimple.xml.php/clip-' + id + '.xml')
 		playlist = url.read()
 		url.close()
+		m = re.search('video="([^"]+)" materialId="([^"]+)"', playlist)
 
-		m = re.search('video="([^"]+)"', playlist)
+		# retrive crossdomain to setup next request for geocheck
+		url = urllib2.urlopen('http://common-dyn.tv2.dk/crossdomain.xml')
+		url.read()
+		url.close()
 
-		xbmc.Player().play(m.group(1))
+		# retrieve real playlist
+		url = urllib2.urlopen('http://common-dyn.tv2.dk/flashplayer/geocheck.php?id=' + m.group(2) + '&file=' + m.group(1))
+		playlist = url.read()
+		url.close()
+
+		xbmc.Player().play(playlist)
 
 def loadJson():
 	json_path = os.path.join(ADDON_DATA_PATH, 'video.js')
