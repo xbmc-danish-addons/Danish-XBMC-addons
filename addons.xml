@@ -30,8 +30,8 @@
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Watch the lateste shows</summary>
 		<summary lang="da">Se de seneste opdateringer</summary>
-		<description lang="en">Probably doesn't work yet</description>
-		<description lang="da">Virker formentlig ikke endnu</description>
+		<description lang="en">Work in progress</description>
+		<description lang="da">Work in progress</description>
 		<license>GPL 2.0</license>
 		<platform>all</platform>
 	</extension>
