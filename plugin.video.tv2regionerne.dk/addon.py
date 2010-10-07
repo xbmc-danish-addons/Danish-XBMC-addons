@@ -5,6 +5,7 @@ from danishaddons import *
 
 REGIONS = [
 	{'name' : 'TV Syd', 'id' : '1'},
+	{'name' : 'TV2/Fyn', 'id' : '2'},
 	{'name' : 'TV2/Øst', 'id' : '3'},
 	{'name' : 'TV2/Nord', 'id' : '4'},
 	{'name' : 'TV2/Lorry', 'id' : '5'},
@@ -15,7 +16,6 @@ REGIONS = [
 ]
 
 def showRegions():
-
 	for idx, r in enumerate(REGIONS):
 		icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
 
@@ -23,36 +23,30 @@ def showRegions():
 		url = ADDON_PATH + '?idx=' + str(idx)
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def showDatesFromLastWeek(idx):
 	r = REGIONS[int(idx)]
 
-	today = datetime.date.today()
-	for i in range(7):
-		d = today - datetime.timedelta(i)
-		item = xbmcgui.ListItem(d.strftime('%A, den %d. %B %Y'))
+	url = urllib2.urlopen('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'])
+	html = url.read()
+	url.close()
 
-		url = ADDON_PATH + '?date=' + d.strftime('%Y%m%d') + '&idx=' + idx
+	for m in re.finditer("\('calSearch','([0-9]+)'\)", html):
+		date = calculateDate(m.group(1))
+		item = xbmcgui.ListItem(date.strftime('%A, den %d. %B %Y'))
+		item.setInfo('video', {
+			'date' : date.strftime('%d.%m.%Y')
+		})
+
+		url = ADDON_PATH + '?date=' + date.strftime('%Y%m%d') + '&idx=' + idx
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
-#	item = xbmcgui.ListItem('Tidligere dato')
-#	url = ADDON_PATH + '?choose=date&idx=' + idx
-#	xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
-	
+	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_DATE)
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
-
-def chooseDate(idx):
-	r = REGIONS[int(idx)]
-
-	dialog = xbmcgui.Dialog()
-	d = dialog.numeric(1, 'Indtast dato')
-
-	if(d != None):
-		parts = d.split('/')
-		date = datetime.date(int(parts[2]), int(parts[1]), int(parts[0]))
-		loadClipsForDate(date, idx)
 
 def showClips(dateStr, idx):
 	y = int(dateStr[0:4])
@@ -72,7 +66,7 @@ def loadClipsForDate(date, idx):
 	initialState = url.read()
 	url.close()
 
-#	lastFocus = re.search('id="__LASTFOCUS" value="([^"]*)"', initialState).group(1)
+	# Retrieve actual page
 	viewState = re.search('id="__VIEWSTATE" value="([^"]*)"', initialState).group(1)
 	eventValidation = re.search('id="__EVENTVALIDATION" value="([^"]*)"', initialState).group(1)
 
@@ -84,17 +78,20 @@ def loadClipsForDate(date, idx):
 		'rbAdvSearch' : '0'
 	}
 
-	# Retrieve actual page
 	req = urllib2.Request('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], urllib.urlencode(data))
 	url = urllib2.urlopen(req)
 	html = url.read()
 	url.close()
 
-	for m in re.finditer('player.aspx\?id=([0-9]+)[^>]+>([^<]+)</a>.*?\(([0-9:]+)\).*?class="beskrivelse"[^>]+>([^<]+)</td>', html, re.DOTALL):
-		id = m.group(1)
-		title = m.group(2)
-		duration = m.group(3)
-		description = m.group(4)
+	for m in re.finditer('(id="udsendelse">([^<]+)</div>.*?)?player.aspx\?id=([0-9]+)[^>]+>([^<]+)</a>.*?\(([0-9:]+)\).*?class="beskrivelse"[^>]+>([^<]+)</td>', html, re.DOTALL):
+		time = m.group(2)
+		id = m.group(3)
+		title = m.group(4)
+		duration = m.group(5)
+		description = m.group(6)
+
+		if(time != None):
+			title = title + ' (' + time + ')'
 
 		item = xbmcgui.ListItem(title)
 		item.setInfo(type = 'video', infoLabels = {
@@ -105,6 +102,7 @@ def loadClipsForDate(date, idx):
 		url = ADDON_PATH + '?id=' + str(id)
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item)
 	
+	xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
@@ -129,9 +127,11 @@ def calculateDateId(date):
 
 	return delta.days
 
-if(ADDON_PARAMS.has_key('choose') and ADDON_PARAMS.has_key('idx')):
-	chooseDate(ADDON_PARAMS['idx'])
-elif(ADDON_PARAMS.has_key('date') and ADDON_PARAMS.has_key('idx')):
+def calculateDate(dateId):
+	return datetime.date(2000, 1, 1) + datetime.timedelta(int(dateId))
+
+
+if(ADDON_PARAMS.has_key('date') and ADDON_PARAMS.has_key('idx')):
 	showClips(ADDON_PARAMS['date'], ADDON_PARAMS['idx'])
 elif(ADDON_PARAMS.has_key('id')):
 	playClip(ADDON_PARAMS['id'])
@@ -140,4 +140,3 @@ elif(ADDON_PARAMS.has_key('idx')):
 else:
 	showRegions()
 
-print sys.argv

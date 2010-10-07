@@ -1,2 +1,6 @@
+[B]Version 0.0.2[/B]
+- Finalized functionality, needs cleanup
+- Added logos
+
 [B]Version 0.0.1[/B]
 - Work in progress, basic functionality should be working
