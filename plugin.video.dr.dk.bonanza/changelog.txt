@@ -1,4 +1,7 @@
-[b]Version 1.0.1[/B]
+[B]Version 1.0.2[/B]
+- Updated to use script.module.simplejson
+
+[B]Version 1.0.1[/B]
 - Fixed parsing and display of clip duration
 - Now uses library module for Danish addons
 

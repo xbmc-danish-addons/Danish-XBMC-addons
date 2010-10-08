@@ -1,3 +1,7 @@
+[B]Version 1.0.0[/B]
+- Updated to use script.module.simplejson
+- Display progressbar while loading playlist
+
 [B]Version 0.1.2[/B]
 - Now uses library module for Danish addons
 - Added support for geo protected video clips such as Tour de France
