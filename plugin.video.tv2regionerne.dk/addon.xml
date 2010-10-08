@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
 	id="plugin.video.tv2regionerne.dk"
-	version="0.0.2"
-	name="TV2/Regionerne WIP"
+	version="1.0.0"
+	name="TV2/Regionerne"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
@@ -12,10 +12,10 @@
 		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Watch the lateste shows</summary>
-		<summary lang="da">Se de seneste opdateringer</summary>
-		<description lang="en">Work in progress</description>
-		<description lang="da">Work in progress</description>
+		<summary lang="en">The latests shows from the Danish regions</summary>
+		<summary lang="da">De seneste udsendelser fra regionerne</summary>
+		<description lang="en">Watch the latest few days of shows from the Danish regions[CR]The shows are available in full length, so XBMC must seek within the file to fine each part. For this reason the image may be distorte the first couple of seconds[CR][CR]Note! Some of the regions no longer update the content available on tv2regionerne.dk, so these are not up-to-date.</description>
+		<description lang="da">Se de seneste dages udsendelser fra landets regioner.[CR]Udsendelserne bliver langt ud i fuld længde, så XBMC må søge i filen for at finde de enkelte indslag. Af den grund kan billede se mærkeligt ud de første par sekunder.[CR][CR]NB! Nogle af regionerne opdaterer ikke længere indholdet på tv2regionerne.dk, så disse er ikke opdaterede.</description>
 		<license>GPL 2.0</license>
 		<platform>all</platform>        
 	</extension>

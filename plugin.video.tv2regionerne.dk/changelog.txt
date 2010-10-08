@@ -1,3 +1,6 @@
+[B]Version 1.0.0[/B]
+- Cleanup
+
 [B]Version 0.0.2[/B]
 - Finalized functionality, needs cleanup
 - Added logos

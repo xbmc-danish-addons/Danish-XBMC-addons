@@ -18,7 +18,6 @@ REGIONS = [
 def showRegions():
 	for idx, r in enumerate(REGIONS):
 		icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
-
 		item = xbmcgui.ListItem(r['name'], iconImage = icon)
 		url = ADDON_PATH + '?idx=' + str(idx)
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
@@ -30,13 +29,12 @@ def showRegions():
 def showDatesFromLastWeek(idx):
 	r = REGIONS[int(idx)]
 
-	url = urllib2.urlopen('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'])
-	html = url.read()
-	url.close()
+	html = web.downloadAndCacheUrl('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], os.path.join(ADDON_DATA_PATH, 'region_%s.html' % r['id']), 60)
+	icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
 
 	for m in re.finditer("\('calSearch','([0-9]+)'\)", html):
 		date = calculateDate(m.group(1))
-		item = xbmcgui.ListItem(date.strftime('%A, den %d. %B %Y'))
+		item = xbmcgui.ListItem(date.strftime('%A, den %d. %B %Y'), iconImage = icon)
 		item.setInfo('video', {
 			'date' : date.strftime('%d.%m.%Y')
 		})
@@ -62,9 +60,7 @@ def loadClipsForDate(date, idx):
 	dateId = calculateDateId(date)
 
 	# Find ASP.NET initial page state
-	url = urllib2.urlopen('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'])
-	initialState = url.read()
-	url.close()
+	initialState = web.downloadAndCacheUrl('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], 'initialstate.html', 0)
 
 	# Retrieve actual page
 	viewState = re.search('id="__VIEWSTATE" value="([^"]*)"', initialState).group(1)
@@ -79,10 +75,10 @@ def loadClipsForDate(date, idx):
 	}
 
 	req = urllib2.Request('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], urllib.urlencode(data))
-	url = urllib2.urlopen(req)
-	html = url.read()
-	url.close()
+	html = web.downloadAndCacheUrl(req, os.path.join(ADDON_DATA_PATH, 'searchresult.html'), 0)
+	icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
 
+	count = 0
 	for m in re.finditer('(id="udsendelse">([^<]+)</div>.*?)?player.aspx\?id=([0-9]+)[^>]+>([^<]+)</a>.*?\(([0-9:]+)\).*?class="beskrivelse"[^>]+>([^<]+)</td>', html, re.DOTALL):
 		time = m.group(2)
 		id = m.group(3)
@@ -93,7 +89,7 @@ def loadClipsForDate(date, idx):
 		if(time != None):
 			title = title + ' (' + time + ')'
 
-		item = xbmcgui.ListItem(title)
+		item = xbmcgui.ListItem(title, iconImage = icon)
 		item.setInfo(type = 'video', infoLabels = {
 			'title' : title,
 			'duration' : duration,
@@ -101,9 +97,14 @@ def loadClipsForDate(date, idx):
 		})
 		url = ADDON_PATH + '?id=' + str(id)
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item)
+
+		count += 1
 	
-	xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
-	xbmcplugin.endOfDirectory(ADDON_HANDLE)
+	if(count > 0):
+		xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
+		xbmcplugin.endOfDirectory(ADDON_HANDLE)
+	else:
+		xbmcgui.Dialog().ok('Intet indhold', 'Der er ingen udsendelser for denne dato.\nPrøv igen senere.')
 
 
 def playClip(id):
