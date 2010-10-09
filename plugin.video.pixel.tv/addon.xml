@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+	id="plugin.video.pixel.tv"
+	version="1.0.0"
+	name="Pixel.tv"
+	provider-name="twinther [tommy@winther.nu]">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>TV der spiller</summary>
+		<description>Pixel.tv er Danmarks første uafhængige tv-station på nettet, og den bliver drevet af erfarne tv-folk og folk med en passion for gaming.[CR][CR]En vigtig mission for Pixel.tv er at udbrede folks kendskab til spiluniverset og at skabe en forståelse for, at spil er for alle. Tanken er, at der skal være mulighed for at hente informationer via vores programmer, samtidig med at man som bruger føler sig underholdt.</description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>        
+	</extension>
+</addon>
