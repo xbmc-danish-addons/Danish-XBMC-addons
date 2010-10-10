@@ -38,7 +38,7 @@ def showOverview():
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
 
 	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
-	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_TITLE)
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_LABEL)
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
@@ -48,60 +48,46 @@ def showCategory(key):
 	for e in json[key]:
 		infoLabels = {}
 		if(e['headline'] != None):
-			infoLabels['title'] = e['date'] + ' ' + decode_htmlentities(e['headline'])
+			infoLabels['title'] = decode_htmlentities(e['headline'])
 		if(e['descr'] != None):
 			infoLabels['plot'] = decode_htmlentities(e['descr'])
 		if(e['date'] != None):
 			infoLabels['year'] = int(e['date'][6:])
+			infoLabels['date'] = e['date'].replace('-', '.')
 		if(e['duration'] != None):
 			infoLabels['duration'] = e['duration'][1:9]
 
 		item = xbmcgui.ListItem(infoLabels['title'], iconImage = e['img'])
 		item.setInfo('video', infoLabels)
+		item.setProperty('IsPlayable', 'true')
 		url = ADDON_PATH + '?id=' + str(e['id'])
 
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item)
 
 	xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
+	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_DATE)
 	xbmcplugin.endOfDirectory(ADDON_HANDLE)
 
 
 def playVideo(id):
-		dialog = xbmcgui.DialogProgress()
-		dialog.create('Et øjeblik', 'Indlæser playlist...')
-
 		# retrieve masquarade playlist
 		url = urllib2.urlopen('http://common.tv2.dk/flashplayer/playlistSimple.xml.php/clip-' + id + '.xml')
 		playlist = url.read()
 		url.close()
 		m = re.search('video="([^"]+)" materialId="([^"]+)"', playlist)
 		
-		if(dialog.iscanceled()):
-			dialog.close()
-			return
-		dialog.update(33)
-
 		# retrive crossdomain to setup next request for geocheck
 		url = urllib2.urlopen('http://common-dyn.tv2.dk/crossdomain.xml')
 		url.read()
 		url.close()
-
-		if(dialog.iscanceled()):
-			dialog.close()
-			return
-		dialog.update(66)
 
 		# retrieve real playlist
 		url = urllib2.urlopen('http://common-dyn.tv2.dk/flashplayer/geocheck.php?id=' + m.group(2) + '&file=' + m.group(1))
 		playlist = url.read()
 		url.close()
 
-		if(dialog.iscanceled()):
-			dialog.close()
-			return
-		dialog.close()
-
-		xbmc.Player().play(playlist)
+		item = xbmcgui.ListItem(path = playlist)
+		xbmcplugin.setResolvedUrl(ADDON_HANDLE, True, item)
 
 def loadJson():
 	json_path = os.path.join(ADDON_DATA_PATH, 'video.js')

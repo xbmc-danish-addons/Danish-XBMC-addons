@@ -1,3 +1,8 @@
+[B]Version 1.0.2[/B]
+- Changed how video URLs is resolved to make it a blocking operation in XBMC, thereby avoid the user selecting multiple videos at once.
+- Changed how the video clip date is displayed in the lists
+- Fixed sorting
+
 [B]Version 1.0.1[/B]
 - Check for cancelled progress dialog while downloading playlist
 
