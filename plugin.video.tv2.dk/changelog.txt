@@ -1,3 +1,6 @@
+[B]Version 1.0.1[/B]
+- Check for cancelled progress dialog while downloading playlist
+
 [B]Version 1.0.0[/B]
 - Updated to use script.module.simplejson
 - Display progressbar while loading playlist

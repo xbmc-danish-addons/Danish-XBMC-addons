@@ -75,7 +75,10 @@ def playVideo(id):
 		playlist = url.read()
 		url.close()
 		m = re.search('video="([^"]+)" materialId="([^"]+)"', playlist)
-
+		
+		if(dialog.iscanceled()):
+			dialog.close()
+			return
 		dialog.update(33)
 
 		# retrive crossdomain to setup next request for geocheck
@@ -83,6 +86,9 @@ def playVideo(id):
 		url.read()
 		url.close()
 
+		if(dialog.iscanceled()):
+			dialog.close()
+			return
 		dialog.update(66)
 
 		# retrieve real playlist
@@ -90,6 +96,9 @@ def playVideo(id):
 		playlist = url.read()
 		url.close()
 
+		if(dialog.iscanceled()):
+			dialog.close()
+			return
 		dialog.close()
 
 		xbmc.Player().play(playlist)
