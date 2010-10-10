@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
 	id="plugin.video.pixel.tv"
-	version="1.0.0"
+	version="1.0.1"
 	name="Pixel.tv"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>

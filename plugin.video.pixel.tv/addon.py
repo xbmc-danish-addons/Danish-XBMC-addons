@@ -4,7 +4,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 from danishaddons import *
 
 def showCategories():
-	html = web.downloadAndCacheUrl('http://www.pixel.tv/', 'programmer.html', 60)
+	html = web.downloadAndCacheUrl('http://www.pixel.tv/', os.path.join(ADDON_DATA_PATH, 'programmer.html'), 60)
 
 	for m in re.finditer('<a href="/programmer/([^/]+)/" onmouseout="UnTip\(\);" onmouseover="Tip\(\'([^\']+)\'\);"><img src="([^"]+)" alt="([^"]+)">', html):
 		slug = m.group(1)
@@ -25,9 +25,9 @@ def showCategories():
 
 def showCategory(slug, page):
 	if(page == None):
-		html = web.downloadAndCacheUrl('http://www.pixel.tv/programmer/%s/' % slug, '%s.html' % slug, 60)
+		html = web.downloadAndCacheUrl('http://www.pixel.tv/programmer/%s/' % slug, os.path.join(ADDON_DATA_PATH, '%s.html' % slug), 60)
 	else:
-		html = web.downloadAndCacheUrl('http://www.pixel.tv/programmer/%s/%s' % (slug, page), '%s-%s.html' % (slug, page), 60)
+		html = web.downloadAndCacheUrl('http://www.pixel.tv/programmer/%s/%s' % (slug, page), os.path.join(ADDON_DATA_PATH, '%s-%s.html' % (slug, page)), 60)
 
 	for m in re.finditer('<small>([^<]+)</small></td><td>.*?<a href="([^"]+)"><small>.*?</small>([^<]+)</a>', html):
 		date = m.group(1)
@@ -54,7 +54,7 @@ def showCategory(slug, page):
 
 
 def playClip(playlist):
-	html = web.downloadAndCacheUrl('http://www.pixel.tv%s' % playlist, 'playlist.html', 0)
+	html = web.downloadAndCacheUrl('http://www.pixel.tv%s' % playlist, os.path.join(ADDON_DATA_PATH, 'playlist.html'), 0)
 
 	m = re.search('http://www.pixel.tv/embed/js/\?file=([0-9]+)&pid=([^&]+)&width=([0-9]+)', html)
 	file = m.group(1)
