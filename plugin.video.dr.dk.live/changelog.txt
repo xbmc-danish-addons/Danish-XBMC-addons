@@ -1,7 +1,11 @@
-[B]Versino 1.0.2[/B]
+[B]Version 1.1.0[/B]
+- Renamed add-on to Danish Live TV to avoid confusion with DR NU Player
+- Added streams for 24 Nordjyske and Folketinget TV
+
+[B]Version 1.0.2[/B]
 - Now uses library module for Danish addons
 
-[B]Versino 1.0.1[/B]
+[B]Version 1.0.1[/B]
 - Fixed logos
 
 [B]Version 1.0.0[/B]

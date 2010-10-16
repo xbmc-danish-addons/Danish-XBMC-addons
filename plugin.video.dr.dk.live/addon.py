@@ -7,7 +7,13 @@ CHANNELS = [
 	{'name' : 'DR2', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr02astream3'},
 	{'name' : 'DR Update', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr03astream3'},
 	{'name' : 'DR K', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr04astream3'},
-	{'name' : 'DR Ramasjang', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr05astream3'}
+	{'name' : 'DR Ramasjang', 'url' : 'rtmp://rtmplive.dr.dk/live/livedr05astream3'},
+
+	# From: http://www.24nordjyske.dk/webtv_high.asp
+	{'name' : '24 Nordjyske', 'url' : 'mms://stream.nordjyske.dk/24nordjyske - Full Broadcast Quality'},
+
+	# From: http://ft.arkena.tv/xml/core_player_clip_data_v2.php?wtve=187&wtvl=2&wtvk=012536940751284
+	{'name' : 'Folketinget', 'url' : 'rtmp://chip.arkena.com/webtvftfl/hi1'}
 ]
 
 def showChannels():
