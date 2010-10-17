@@ -101,13 +101,13 @@ def addContent(html):
 
 		infoLabels = {}
 		if(json['Title'] != None):
-			infoLabels['title'] = json['Title']
+			infoLabels['title'] = web.decodeHtmlEntities(json['Title'])
 		if(json['Description'] != None):
-			infoLabels['plot'] = json['Description']
+			infoLabels['plot'] = web.decodeHtmlEntities(json['Description'])
 		if(json['Colophon'] != None):
-			infoLabels['writer'] = json['Colophon']
+			infoLabels['writer'] = web.decodeHtmlEntities(json['Colophon'])
 		if(json['Actors'] != None):
-			infoLabels['cast'] = json['Actors']
+			infoLabels['cast'] = web.decodeHtmlEntities(json['Actors'])
 		if(json['Rating'] != None):
 			infoLabels['rating'] = json['Rating']
 		if(json['FirstPublished'] != None):
@@ -115,7 +115,7 @@ def addContent(html):
 		if(json['Duration'] != None):
 			infoLabels['duration'] = info.secondsToDuration(int(json['Duration']) / 1000)
 
-		item = xbmcgui.ListItem(json['Title'], iconImage = findFileLocation(json, 'Thumb'))
+		item = xbmcgui.ListItem(infoLabels['title'], iconImage = findFileLocation(json, 'Thumb'))
 		item.setInfo('video', infoLabels)
 
 		rtmp_url = findFileLocation(json, 'VideoHigh')

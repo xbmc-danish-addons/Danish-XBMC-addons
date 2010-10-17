@@ -1,3 +1,6 @@
+[B]Version 1.0.3[/B]
+- Decode HTML entities in title, description, etc.
+
 [B]Version 1.0.2[/B]
 - Updated to use script.module.simplejson
 
