@@ -1,0 +1,12 @@
+1.0.1 - Added country selection.
+      - Stripped (Contry Letter): from label.
+      
+1.0.0 - Initial release - alot of features are missing. More to come.
+      - This script uses script.module.danishaddons. The easiest way to get this is
+      - by adding the Danish XBMC Addons Repo. After doing that install the DR.dk Bonanza Video Add-on.
+      - You'll find the Danish XBMC Addons Repo here:
+      - http://github.com/xbmc-danish-addons/Danish-XBMC-addons/raw/master/repository.danish.addons.zip
+      - Install this Add-on by using System -> Add-ons- > Install from zip file.
+      - This script also uses script.module.simplejson. You can download this module from varios places.
+      - Use this URL to find a download site. http://www.google.dk/search?q=script.module.simplejson-2.0.10.zip
+      - Install this Add-on by using System -> Add-ons- > Install from zip file.

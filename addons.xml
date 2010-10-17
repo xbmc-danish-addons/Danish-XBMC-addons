@@ -127,6 +127,23 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.dr.tvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
+  <requires>
+  	<import addon="xbmc.gui"/>
+  	<import addon="xbmc.plugin"/>
+    <import addon="script.module.simplejson"/>
+    <import addon="script.module.danishaddons"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="drtvguide.py">
+	  <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>DR TV Guide</summary>
+    <description>TV Guide from www.dr.dk</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon
 	id="plugin.video.pixel.tv"
 	version="1.0.1"
