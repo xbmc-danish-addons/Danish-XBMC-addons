@@ -1,2 +1,6 @@
+[B]Version 1.0.1[/B]
+- Added downloadUrl(..) and decodeHtmlEntities(..) to web module
+- Added pydoc documentation to methods
+
 [B]Version 1.0.0[/B]
 - Initial version

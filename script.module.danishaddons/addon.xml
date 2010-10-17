@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.module.danishaddons"
        name="Library module for Danish addons"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
   </requires>
   <extension point="xbmc.python.module" />
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Library module for Danish addons</summary>
-    <description lang="en">Library with reusable utility functions used by the Danish addons</description>
+    <summary>Library module for Danish addons</summary>
+    <description>Library with reusable utility functions used by the Danish addons</description>
     <platform>all</platform>
   </extension>
 </addon>
