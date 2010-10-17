@@ -2,15 +2,15 @@
 <addons>
 <addon id="script.module.danishaddons"
        name="Library module for Danish addons"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
   </requires>
   <extension point="xbmc.python.module" />
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Library module for Danish addons</summary>
-    <description lang="en">Library with reusable utility functions used by the Danish addons</description>
+    <summary>Library module for Danish addons</summary>
+    <description>Library with reusable utility functions used by the Danish addons</description>
     <platform>all</platform>
   </extension>
 </addon>
@@ -94,7 +94,7 @@
 
 <addon
 	id="plugin.video.tv2.dk"
-	version="1.0.2"
+	version="1.0.3"
 	name="TV2 Video"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
@@ -139,12 +139,12 @@
 
 <addon
   id="plugin.video.dr.dk.bonanza"
-  version="1.0.2"
+  version="1.0.3"
   name="DR.dk Bonanza"
   provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.0.1"/>
 		<import addon="script.module.simplejson" version="2.0.10"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">

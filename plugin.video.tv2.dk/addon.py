@@ -1,7 +1,6 @@
 # coding = 'utf-8'
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 import urllib, urllib2, re, os, time, simplejson
-from htmlentitydefs import name2codepoint as n2cp
 
 from danishaddons import *
 
@@ -48,9 +47,9 @@ def showCategory(key):
 	for e in json[key]:
 		infoLabels = {}
 		if(e['headline'] != None):
-			infoLabels['title'] = decode_htmlentities(e['headline'])
+			infoLabels['title'] = web.decodeHtmlEntities(e['headline'])
 		if(e['descr'] != None):
-			infoLabels['plot'] = decode_htmlentities(e['descr'])
+			infoLabels['plot'] = web.decodeHtmlEntities(e['descr'])
 		if(e['date'] != None):
 			infoLabels['year'] = int(e['date'][6:])
 			infoLabels['date'] = e['date'].replace('-', '.')
@@ -99,27 +98,6 @@ def loadJson():
 	json = re.sub(r'\'([\w-]+)\':', r'"\1":', m.group(1))
 
 	return simplejson.loads(json)
-	
-def decode_htmlentities(string):
-
-    def substitute_entity(match):
-        ent = match.group(3)
-        if match.group(1) == "#":
-            # decoding by number
-            if match.group(2) == '':
-                # number is in decimal
-                return unichr(int(ent))
-            elif match.group(2) == 'x':
-                # number is in hex
-                return unichr(int('0x'+ent, 16))
-        else:
-            # they were using a name
-            cp = n2cp.get(ent)
-            if cp: return unichr(cp)
-            else: return match.group()
-    
-    entity_re = re.compile(r'&(#?)(x?)(\w+);')
-    return entity_re.subn(substitute_entity, string)[0]
 
 
 if(ADDON_PARAMS.has_key('key')):
