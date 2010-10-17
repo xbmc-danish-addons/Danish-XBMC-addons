@@ -127,7 +127,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.dr.tvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
+<addon id="plugin.video.drtvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
   <requires>
   	<import addon="xbmc.gui"/>
   	<import addon="xbmc.plugin"/>
