@@ -1,2 +1,5 @@
+[B]Version 1.0.1[/B]
+- Switched to MP4 video clips instead of WebM to get VDPAU acceleration on linux
+
 [B]Version 1.0.0[/B]
 - Initial version

@@ -39,7 +39,7 @@
 
 <addon
 	id="plugin.video.videovideo.dk"
-	version="1.0.0"
+	version="1.0.1"
 	name="videovideo.dk HD"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>

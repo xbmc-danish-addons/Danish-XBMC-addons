@@ -10,7 +10,7 @@ from feedparser import feedparser
 from danishaddons import *
 
 SHOWS_URL = 'http://videovideo.dk/shows'
-RSS_URL_TEMPLATE = 'http://videovideo.dk/show/%s/rss/720/webm'
+RSS_URL_TEMPLATE = 'http://videovideo.dk/show/%s/rss/720/mp4'
 
 def showOverview():
 	html_path = os.path.join(ADDON_DATA_PATH, 'shows.html')
