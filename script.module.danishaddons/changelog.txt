@@ -1,3 +1,6 @@
+[B]Version 1.0.2[/B]
+- Load ADDON_ID from folder name instead of first argument to make the module work for scripts as well
+
 [B]Version 1.0.1[/B]
 - Added downloadUrl(..) and decodeHtmlEntities(..) to web module
 - Added pydoc documentation to methods
