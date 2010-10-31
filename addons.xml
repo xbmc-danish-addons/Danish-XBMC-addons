@@ -2,7 +2,7 @@
 <addons>
 <addon id="script.module.danishaddons"
        name="Library module for Danish addons"
-       version="1.0.1"
+       version="1.0.3"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
@@ -187,6 +187,23 @@
   <extension point="xbmc.addon.metadata">
     <summary>DR NU Player</summary>
     <description>Watch shows from www.dr.dk/nu</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="script.tvguide"
+       name="TV Guide from dr.dk"
+       version="0.1.0"
+       provider-name="twinther [tommy@winther.nu]">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.3"/>
+		<import addon="script.module.simplejson" version="2.0.10"/>
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary>TV Guide</summary>
+    <description></description>
     <platform>all</platform>
   </extension>
 </addon>
