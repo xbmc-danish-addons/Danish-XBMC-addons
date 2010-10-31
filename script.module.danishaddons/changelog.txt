@@ -1,3 +1,6 @@
+[B]Version 1.0.3[/B]
+- Added support for using this module with scripts as well as plugins
+
 [B]Version 1.0.2[/B]
 - Load ADDON_ID from folder name instead of first argument to make the module work for scripts as well
 
