@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="script.module.danishaddons"
-       name="Library module for Danish addons"
-       version="1.0.3"
-       provider-name="twinther [tommy@winther.nu]">
-  <requires>
-    <import addon="xbmc.python" version="1.0"/>
-  </requires>
-  <extension point="xbmc.python.module" />
-  <extension point="xbmc.addon.metadata">
-    <summary>Library module for Danish addons</summary>
-    <description>Library with reusable utility functions used by the Danish addons</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
 <addon
 	id="plugin.video.tv2regionerne.dk"
 	version="1.0.0"
@@ -37,45 +22,43 @@
 	</extension>
 </addon>
 
+<addon id="plugin.video.drtvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
+  <requires>
+  	<import addon="xbmc.gui"/>
+  	<import addon="xbmc.plugin"/>
+    <import addon="script.module.simplejson"/>
+    <import addon="script.module.danishaddons"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="drtvguide.py">
+	  <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>DR TV Guide</summary>
+    <description>TV Guide from www.dr.dk</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon
-	id="plugin.video.videovideo.dk"
-	version="1.0.1"
-	name="videovideo.dk HD"
+	id="plugin.video.dr.dk.live"
+	version="1.1.0"
+	name="Danish Live TV"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.1"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>720p HD video fra newz Media ApS</summary>
-		<description>videovideo.dk er overordnet videoplatform for alle sites tilhørende newz Media ApS, heriblandt filmz.dk og bilekspressen.dk</description>
+		<summary lang="en">Watch Danish Live TV</summary>
+		<summary lang="da">Se dansk Live TV</summary>
+		<description lang="en">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang[CR]24 Nordjyske[CR]Folketinget</description>
+		<description lang="da">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang[CR]24 Nordjyske[CR]Folketinget</description>
 		<license>GPL 2.0</license>
 		<platform>all</platform>
 	</extension>
-</addon>
-
-<addon
-  id="plugin.video.onside.tv"
-  version="1.0.0"
-  name="Onside TV"
-  provider-name="ariba [mail@nielsriber.dk]">
-  <requires>
-    <import addon="xbmc.python" version="1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Watch the greatest goals and interviews from Onside.tv</summary>
-    <summary lang="da">Se de bedste mål og interviews fra Onside.tv</summary>
-    <description lang="en"></description>
-    <description lang="da"></description>
-		<license>GPL 2.0</license>
-		<platform>all</platform>
-  </extension>
 </addon>
 
 <addon id="repository.danish.addons" name="Danish XBMC Addons" version="1.0.0" provider-name="ariba [mail@nielsriber.dk], twinther [tommy@winther.nu]">
@@ -113,98 +96,23 @@
 </addon>
 
 <addon
-	id="plugin.video.tv2.dk"
-	version="1.0.3"
-	name="TV2 Video"
-	provider-name="twinther [tommy@winther.nu]">
-	<requires>
-		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
-		<import addon="script.module.simplejson" version="2.0.10"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="addon.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Watch the latest videoclips from Danish TV2</summary>
-		<summary lang="da">Se de seneste videoklip fra TV2</summary>
-		<description lang="en">Watch select programming from Danish TV2 as weel as news and other programming split up into individual stories.</description>
-		<description lang="da">Se udvalgte progammer fra TV2 samt nyhederne og andre programmer opdelt i enkelt stående indslag.</description>
-		<license>GPL 2.0</license>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon
-	id="plugin.video.dr.dk.live"
-	version="1.1.0"
-	name="Danish Live TV"
-	provider-name="twinther [tommy@winther.nu]">
-	<requires>
-		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="addon.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Watch Danish Live TV</summary>
-		<summary lang="da">Se dansk Live TV</summary>
-		<description lang="en">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang[CR]24 Nordjyske[CR]Folketinget</description>
-		<description lang="da">Live steams for[CR]DR1[CR]DR2[CR]DR Update[CR]DR K[CR]DR Ramasjang[CR]24 Nordjyske[CR]Folketinget</description>
-		<license>GPL 2.0</license>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.video.drtvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
-  <requires>
-  	<import addon="xbmc.gui"/>
-  	<import addon="xbmc.plugin"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.module.danishaddons"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="drtvguide.py">
-	  <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>DR TV Guide</summary>
-    <description>TV Guide from www.dr.dk</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.drnu" version="1.0.4" name="DR NU Player" provider-name="InKaKiLLeR">
-  <requires>
-  	<import addon="xbmc.gui"/>
-  	<import addon="xbmc.plugin"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.module.danishaddons"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="drnu.py">
-	  <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>DR NU Player</summary>
-    <description>Watch shows from www.dr.dk/nu</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="script.tvguide"
-       name="TV Guide from dr.dk"
-       version="0.1.0"
-       provider-name="twinther [tommy@winther.nu]">
+  id="plugin.video.onside.tv"
+  version="1.0.0"
+  name="Onside TV"
+  provider-name="ariba [mail@nielsriber.dk]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.3"/>
-		<import addon="script.module.simplejson" version="2.0.10"/>
   </requires>
-  <extension point="xbmc.python.script" library="addon.py"/>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>TV Guide</summary>
-    <description></description>
-    <platform>all</platform>
+    <summary lang="en">Watch the greatest goals and interviews from Onside.tv</summary>
+    <summary lang="da">Se de bedste mål og interviews fra Onside.tv</summary>
+    <description lang="en"></description>
+    <description lang="da"></description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>
   </extension>
 </addon>
 
@@ -232,6 +140,23 @@
   </extension>
 </addon>
 
+<addon id="script.tvguide"
+       name="TV Guide from dr.dk"
+       version="0.1.1"
+       provider-name="twinther [tommy@winther.nu]">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.4"/>
+		<import addon="script.module.simplejson" version="2.0.10"/>
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary>TV Guide</summary>
+    <description></description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon
 	id="plugin.video.pixel.tv"
 	version="1.0.1"
@@ -253,6 +178,58 @@
 </addon>
 
 <addon
+	id="plugin.video.videovideo.dk"
+	version="1.0.1"
+	name="videovideo.dk HD"
+	provider-name="twinther [tommy@winther.nu]">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.1"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>720p HD video fra newz Media ApS</summary>
+		<description>videovideo.dk er overordnet videoplatform for alle sites tilhørende newz Media ApS, heriblandt filmz.dk og bilekspressen.dk</description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.module.danishaddons"
+       name="Library module for Danish addons"
+       version="1.0.4"
+       provider-name="twinther [tommy@winther.nu]">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+  </requires>
+  <extension point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Library module for Danish addons</summary>
+    <description>Library with reusable utility functions used by the Danish addons</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.drnu" version="1.0.4" name="DR NU Player" provider-name="InKaKiLLeR">
+  <requires>
+  	<import addon="xbmc.gui"/>
+  	<import addon="xbmc.plugin"/>
+    <import addon="script.module.simplejson"/>
+    <import addon="script.module.danishaddons"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="drnu.py">
+	  <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>DR NU Player</summary>
+    <description>Watch shows from www.dr.dk/nu</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon
 	id="plugin.video.dr.dk.podcast"
 	version="1.0.2"
 	name="DR.dk Video Podcasts"
@@ -269,6 +246,29 @@
 		<summary lang="da">Se og hør DRs programmer når du vil</summary>
 		<description lang="en">DR (Danish Broadcasting Corporation) provides a variation of their programming as podcasts, where typically 5-10 of the latest episodes are available online.</description>
 		<description lang="da">DR udgiver en række af deres programmer som video podcasts, hvor typisk de seneste 5-10 afsnit er tilgængelige online.</description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon
+	id="plugin.video.tv2.dk"
+	version="1.0.3"
+	name="TV2 Video"
+	provider-name="twinther [tommy@winther.nu]">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.simplejson" version="2.0.10"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Watch the latest videoclips from Danish TV2</summary>
+		<summary lang="da">Se de seneste videoklip fra TV2</summary>
+		<description lang="en">Watch select programming from Danish TV2 as weel as news and other programming split up into individual stories.</description>
+		<description lang="da">Se udvalgte progammer fra TV2 samt nyhederne og andre programmer opdelt i enkelt stående indslag.</description>
 		<license>GPL 2.0</license>
 		<platform>all</platform>
 	</extension>

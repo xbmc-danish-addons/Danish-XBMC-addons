@@ -1,3 +1,6 @@
+[B]Version 1.0.4[/B]
+- Fix cache dir creation
+
 [B]Version 1.0.3[/B]
 - Added support for using this module with scripts as well as plugins
 
