@@ -1,3 +1,6 @@
+[B]Version 1.0.4[/B]
+- Fixed patching of RTMP URL
+
 [B]Version 1.0.3[/B]
 - Decode HTML entities in title, description, etc.
 

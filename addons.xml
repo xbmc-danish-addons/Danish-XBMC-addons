@@ -196,10 +196,10 @@
        version="0.1.0"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
-    <import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.3"/>
-		<import addon="script.module.simplejson" version="2.0.10"/>
-		<import addon="script.module.elementtree" version="1.2.7"/>
+    <import addon="xbmc.python"/>
+		<import addon="script.module.danishaddons"/>
+		<import addon="script.module.simplejson"/>
+		<import addon="script.module.elementtree"/>
   </requires>
   <extension point="xbmc.python.script" library="addon.py"/>
   <extension point="xbmc.addon.metadata">
@@ -211,7 +211,7 @@
 
 <addon
   id="plugin.video.dr.dk.bonanza"
-  version="1.0.3"
+  version="1.0.4"
   name="DR.dk Bonanza"
   provider-name="twinther [tommy@winther.nu]">
   <requires>

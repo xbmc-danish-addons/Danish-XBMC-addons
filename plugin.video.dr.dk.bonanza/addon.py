@@ -125,7 +125,8 @@ def addContent(html):
 			rtmp_url = findFileLocation(json, 'VideoLow')
 
 		# patch rtmp_url to work with mplayer
-		rtmp_url = rtmp_url.replace('rtmp://vod.dr.dk/', 'rtmp://vod.dr.dk/bonanza/')
+		m = re.match('(rtmp://.*?)/(.*)', rtmp_url)
+		rtmp_url = '%s/bonanza/%s' % (m.group(1), m.group(2))
 		xbmcplugin.addDirectoryItem(ADDON_HANDLE, rtmp_url, item, False)
 
 
