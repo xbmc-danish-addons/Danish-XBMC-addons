@@ -192,8 +192,8 @@
 </addon>
 
 <addon id="script.tvguide"
-       name="TV Guide from dr.dk"
-       version="0.1.0"
+       name="Danish TV Guide"
+       version="0.2.0"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python"/>
@@ -203,7 +203,7 @@
   </requires>
   <extension point="xbmc.python.script" library="addon.py"/>
   <extension point="xbmc.addon.metadata">
-    <summary>TV Guide</summary>
+    <summary>TV Guide for Danish TV channels</summary>
     <description></description>
     <platform>all</platform>
   </extension>
