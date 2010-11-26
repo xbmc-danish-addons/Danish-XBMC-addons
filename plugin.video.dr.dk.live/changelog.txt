@@ -1,3 +1,8 @@
+[B]Version 1.2.0[/B]
+- Made it possible to set quality of streams, eg. high, medium, low
+- Not all streams are available in all qualities
+- Configurable through the plugin settings
+
 [B]Version 1.1.0[/B]
 - Renamed add-on to Danish Live TV to avoid confusion with DR NU Player
 - Added streams for 24 Nordjyske and Folketinget TV
