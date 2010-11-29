@@ -2,7 +2,7 @@
 <addons>
 <addon id="script.module.danishaddons"
        name="Library module for Danish addons"
-       version="1.0.4"
+       version="1.0.5"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
@@ -174,12 +174,11 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.drnu" version="1.1.0" name="DR NU Player" provider-name="InKaKiLLeR, twinther [tommy@winther.nu]">
+<addon id="plugin.video.drnu" version="1.1.1" name="DR NU Player" provider-name="InKaKiLLeR, twinther [tommy@winther.nu]">
   <requires>
-  	<import addon="xbmc.gui"/>
-  	<import addon="xbmc.plugin"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.module.danishaddons"/>
+    <import addon="xbmc.python" version="1.0"/>
+    <import addon="script.module.simplejson" version="2.0.10"/>
+    <import addon="script.module.danishaddons" version="1.0.5"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="drnu.py">
 	  <provides>video</provides>

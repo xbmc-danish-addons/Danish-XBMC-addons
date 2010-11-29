@@ -1,3 +1,6 @@
+[B]Version 1.0.5[/B]
+- Changes version number to (hopefully) force download
+
 [B]Version 1.0.4[/B]
 - Fix cache dir creation
 
