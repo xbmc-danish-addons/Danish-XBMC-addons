@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<addon id="plugin.video.dr.dk.pirattv" version="0.0.1" name="DR Pirat TV" provider-name="twinther [tommy@winther.nu]"> 
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+    <import addon="script.module.danishaddons" version="1.0.5"/>
+		<import addon="script.module.elementtree" version="2.0.10"/>
+  </requires> 
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+	  <provides>video</provides>
+  </extension> 
+  <extension point="xbmc.addon.metadata"> 
+    <summary>DR Pirat TV</summary>
+    <description>Watch shows from www.dr.dk/pirattv</description> 
+    <platform>all</platform> 
+  </extension> 
+</addon>
