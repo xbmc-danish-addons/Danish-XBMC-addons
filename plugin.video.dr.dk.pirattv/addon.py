@@ -38,7 +38,6 @@ def showClips(slug, page = None):
 	url = URL + 'programmer/' + slug
 	if(page != None):
 		url += '/side-%s/?' % page
-	print url
 	html = web.downloadAndCacheUrl(url, os.path.join(ADDON_DATA_PATH, '%s-%s.html' % (slug, page)), 60)
 
 	for m in re.finditer('<h3>.*?<a href="/pirattv/programmer/(.*?)/(side-.*?/)?(.*?)" title="(.*?)">.*?</a>.*?<a href="(.*?)" rel="thumbnail">.*?<p>(.*?)</p>.*?<span class="rating">(.*?)</span>.*?<span class="duration">(.*?)</span>', html, re.DOTALL):
@@ -77,8 +76,6 @@ def playClip(slug, clipSlug):
 	m = re.search("mediaFile: '(rtmp://.*?/)(.*?/)(.*?)'", html)
 	url = m.group(1) + m.group(2) + m.group(2) + m.group(3)
 
-	print url
-	
 	item = xbmcgui.ListItem(path = url)
 	xbmcplugin.setResolvedUrl(ADDON_HANDLE, True, item)
 
