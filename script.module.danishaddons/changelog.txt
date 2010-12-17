@@ -1,3 +1,6 @@
+[B]Version WIP[/B]
+- Added tests and initial stub version of xbmc module to allow execution of tests outside of XBMC
+
 [B]Version 1.0.5[/B]
 - Changes version number to (hopefully) force download
 
