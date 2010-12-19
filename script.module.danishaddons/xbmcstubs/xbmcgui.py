@@ -1,7 +1,5 @@
 __author__ = 'twi'
 
-items = list()
-
 class DialogProgress():
     def __init__(self):
         pass
@@ -23,8 +21,7 @@ class ListItem():
     def __init__(self, title, iconImage = None):
         self.title = title
         self.iconImage = iconImage
-
-        items.append(self)
+        self.url = None
 
     def setInfo(self, type, infoLabels):
         pass
