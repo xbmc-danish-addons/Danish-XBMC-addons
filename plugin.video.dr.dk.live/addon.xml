@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
 	id="plugin.video.dr.dk.live"
-	version="1.2.0"
+	version="1.2.1"
 	name="Danish Live TV"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
