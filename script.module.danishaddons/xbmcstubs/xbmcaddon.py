@@ -3,6 +3,9 @@ __author__ = 'twi'
 import tempfile
 import os
 
+settings = dict()
+strings = dict()
+
 class Addon:
     def __init__(self, id):
         self.id = id
@@ -15,6 +18,14 @@ class Addon:
             return dir
 
     def getLocalizedString(self, id):
-        return "localizedString_%d" % id
+        if strings.has_key(id):
+            return strings[id]
+        else:
+            return "localizedString_%d" % id
 
+    def getSetting(self, key):
+        return settings[key]
+
+    def setSetting(self, key, value):
+        settings[key] = value
   

@@ -18,7 +18,7 @@ class DialogProgress():
 
 
 class ListItem():
-    def __init__(self, title, iconImage = None):
+    def __init__(self, title, iconImage = None, thumbnailImage = None):
         self.title = title
         self.iconImage = iconImage
         self.url = None
@@ -28,3 +28,6 @@ class ListItem():
 
     def setLabel2(self, label2):
         self.label2 = label2
+
+    def setProperty(self, property, value):
+        pass
