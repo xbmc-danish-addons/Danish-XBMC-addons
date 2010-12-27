@@ -2,7 +2,7 @@
 <addons>
 <addon id="script.module.danishaddons"
        name="Library module for Danish addons"
-       version="1.0.5"
+       version="1.1.0"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
@@ -19,7 +19,8 @@
 	id="plugin.video.tv2regionerne.dk"
 	version="1.0.0"
 	name="TV2/Regionerne"
-	provider-name="twinther [tommy@winther.nu]">
+	provider-name="twinther [tommy@winther.nu]"
+    broken="true">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
 		<import addon="script.module.danishaddons" version="1.0.0"/>
@@ -39,12 +40,13 @@
 
 <addon
 	id="plugin.video.videovideo.dk"
-	version="1.0.1"
+	version="1.0.2"
 	name="videovideo.dk HD"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.1"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
+		<import addon="script.module.feedparser" version="4.1"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
@@ -94,12 +96,12 @@
 
 <addon
 	id="plugin.video.gametest.dk"
-	version="1.0.0"
+	version="1.0.1"
 	name="Gametest"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
@@ -114,12 +116,12 @@
 
 <addon
 	id="plugin.video.tv2.dk"
-	version="1.0.3"
+	version="1.0.4"
 	name="TV2 Video"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 		<import addon="script.module.simplejson" version="2.0.10"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
@@ -137,12 +139,12 @@
 
 <addon
 	id="plugin.video.dr.dk.live"
-	version="1.2.0"
+	version="1.2.1"
 	name="Danish Live TV"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
@@ -157,44 +159,43 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.dr.dk.pirattv" version="1.0.0" name="DR Pirat TV" provider-name="twinther [tommy@winther.nu]">
+<addon id="plugin.video.dr.dk.pirattv" version="1.0.1" name="DR Pirat TV" provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.danishaddons" version="1.1.0"/>
+        <import addon="script.module.elementtree" version="2.0.10"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>DR Pirat TV</summary>
+        <description>Watch shows from www.dr.dk/pirattv</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="plugin.video.yousee.tv" version="0.0.2" name="YouSee TV" provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
-    <import addon="script.module.danishaddons" version="1.0.5"/>
+    <import addon="script.module.danishaddons" version="1.1.0"/>
 		<import addon="script.module.elementtree" version="2.0.10"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
 	  <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>DR Pirat TV</summary>
-    <description>Watch shows from www.dr.dk/pirattv</description>
+    <summary>YouSee TV</summary>
+    <description>Watch shows from www.yousee.tv</description>
     <platform>all</platform>
   </extension>
 </addon>
 
-<addon id="plugin.video.drtvguide" version="1.0.1" name="DR TV Guide" provider-name="InKaKiLLeR">
-  <requires>
-  	<import addon="xbmc.gui"/>
-  	<import addon="xbmc.plugin"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.module.danishaddons"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="drtvguide.py">
-	  <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>DR TV Guide</summary>
-    <description>TV Guide from www.dr.dk</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.drnu" version="1.1.2" name="DR NU Player" provider-name="InKaKiLLeR, twinther [tommy@winther.nu]">
+<addon id="plugin.video.drnu" version="1.1.3" name="DR NU Player" provider-name="InKaKiLLeR, twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
     <import addon="script.module.simplejson" version="2.0.10"/>
-    <import addon="script.module.danishaddons" version="1.0.5"/>
+    <import addon="script.module.danishaddons" version="1.1.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="drnu.py">
 	  <provides>video</provides>
@@ -210,15 +211,31 @@ Alle de programmer, DR har rettigheder til at vise på nettet, vil være at find
   </extension>
 </addon>
 
+<addon id="script.module.feedparser"
+       name="Universal Feed Parser (feedparser.org)"
+       version="4.1"
+       provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+    </requires>
+    <extension point="xbmc.python.module"/>
+    <extension point="xbmc.addon.metadata">
+        <summary>Universal Feed Parser</summary>
+        <description>Parse RSS and Atom feeds in Python. 3000 unit tests. Open source.</description>
+        <license>Open source</license>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="script.tvguide"
        name="Danish TV Guide"
-       version="0.2.0"
+       version="0.2.1"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python"/>
-		<import addon="script.module.danishaddons"/>
-		<import addon="script.module.simplejson"/>
-		<import addon="script.module.elementtree"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
+		<import addon="script.module.simplejson" version="2.0.10"/>
+		<import addon="script.module.elementtree" version="2.0.10"/>
   </requires>
   <extension point="xbmc.python.script" library="addon.py"/>
   <extension point="xbmc.addon.metadata">
@@ -230,12 +247,12 @@ Alle de programmer, DR har rettigheder til at vise på nettet, vil være at find
 
 <addon
   id="plugin.video.dr.dk.bonanza"
-  version="1.0.4"
+  version="1.0.5"
   name="DR.dk Bonanza"
   provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.1"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 		<import addon="script.module.simplejson" version="2.0.10"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="addon.py">
@@ -246,20 +263,19 @@ Alle de programmer, DR har rettigheder til at vise på nettet, vil være at find
     <summary lang="da">Det bedste og værste fra DR's arkiver</summary>
     <description lang="en">On the 16th of January 2008 DR (Danish Broadcasting Corporation) opened up its great archive to what became Bonanza. Here you can see some of the best - and worst, of what has been produced during the years.</description>
     <description lang="da">16. januar 2008 åbnede DR for sit store arkiv med Bonanza. Her kan du se lidt af det bedste - og værste af det, der er blevet produceret i årenes løb.</description>
-
-		<license>GPL 2.0</license>
-		<platform>all</platform>
+    <license>GPL 2.0</license>
+    <platform>all</platform>
   </extension>
 </addon>
 
 <addon
 	id="plugin.video.pixel.tv"
-	version="1.0.1"
+	version="1.0.2"
 	name="Pixel.tv"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
@@ -274,12 +290,13 @@ Alle de programmer, DR har rettigheder til at vise på nettet, vil være at find
 
 <addon
 	id="plugin.video.dr.dk.podcast"
-	version="1.0.2"
+	version="1.0.3"
 	name="DR.dk Video Podcasts"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
-		<import addon="script.module.danishaddons" version="1.0.0"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
+        <import addon="script.module.feedparser" version="4.1"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
