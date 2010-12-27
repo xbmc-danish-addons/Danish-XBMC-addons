@@ -30,9 +30,11 @@ def showOverview():
         feed_idx+=1
         key = m.group(1)
         details = getFeedDetails(key)
+        if details is None:
+            continue
 
         iconImage = None
-        if(details.has_key('image_path')):
+        if details.has_key('image_path'):
             iconImage = details['image_path']
 
         item = xbmcgui.ListItem(details['title'], iconImage = iconImage)
@@ -44,7 +46,7 @@ def showOverview():
         xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item, True)
 
         dialog.update((feed_idx * 100 / feed_count), details['title'])
-        if(dialog.iscanceled()):
+        if dialog.iscanceled():
             break
 
     dialog.close()
@@ -69,7 +71,7 @@ def showFeed(key):
             'director' : e.author,
             'writer' : e.author
         }
-        if(e.updated_parsed is not None):
+        if e.updated_parsed is not None:
             infoLabels['aired'] = parsePubDate(e.updated_parsed)
             infoLabels['year'] = e.updated_parsed[0]
 
@@ -86,8 +88,11 @@ def getFeedDetails(key):
     details_path = os.path.join(danishaddons.ADDON_DATA_PATH, key + '.pickle')
     details = {}
 
-    if(not os.path.exists(details_path)):
+    if not os.path.exists(details_path):
         d = feedparser.parse(FEED_URL_TEMPLATE % key)
+        if d.bozo == 1:
+            return None
+        
 
         details['title'] = d.feed.title
         details['description'] = d.feed.subtitle
@@ -108,10 +113,10 @@ def parsePubDate(pubDate):
     return '%d-%d-%d' % (pubDate[0], pubDate[1], pubDate[2])
 
 
-if(__name__ == '__main__'):
+if __name__ == '__main__':
     danishaddons.init(sys.argv)
 
-    if(danishaddons.ADDON_PARAMS.has_key('key')):
+    if danishaddons.ADDON_PARAMS.has_key('key'):
         showFeed(danishaddons.ADDON_PARAMS['key'])
     else:
         showOverview()
