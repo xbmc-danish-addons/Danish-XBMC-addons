@@ -85,6 +85,8 @@ def getQuality():
 
 
 if __name__ == '__main__':
+    danishaddons.init(sys.argv)
+
     if danishaddons.ADDON_PARAMS.has_key('idx'):
         playChannel(danishaddons.ADDON_PARAMS['idx'])
     else:
