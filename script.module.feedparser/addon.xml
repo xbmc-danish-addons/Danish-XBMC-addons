@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.feedparser"
+       name="Universal Feed Parser (feedparser.org)"
+       version="4.1"
+       provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+    </requires>
+    <extension point="xbmc.python.module"/>
+    <extension point="xbmc.addon.metadata">
+        <summary>Universal Feed Parser</summary>
+        <description>Parse RSS and Atom feeds in Python. 3000 unit tests. Open source.</description>
+        <license>Open source</license>
+        <platform>all</platform>
+    </extension>
+</addon>
