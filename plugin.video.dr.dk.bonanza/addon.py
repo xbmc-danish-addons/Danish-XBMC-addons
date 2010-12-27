@@ -146,6 +146,8 @@ def findFileLocation(json, type):
 
 
 if(__name__ == '__main__'):
+    danishaddons.init(sys.argv)
+    
     if(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'subcat'):
         showSubCategories(danishaddons.ADDON_PARAMS['url'], danishaddons.ADDON_PARAMS['title'])
     elif(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'content'):

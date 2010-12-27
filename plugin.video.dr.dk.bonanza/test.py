@@ -22,7 +22,6 @@ class TestDrDkBonanza(unittest.TestCase):
         addon.search()
 
         self.assertNotEquals(0, len(xbmcplugin.items), msg = 'Expected at least one ListItem')
-        print xbmcplugin.items
 
     def testShowCategories(self):
         addon.showCategories()
