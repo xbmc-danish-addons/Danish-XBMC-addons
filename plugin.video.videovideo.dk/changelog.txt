@@ -1,3 +1,6 @@
+[B]Version 1.0.2[/B]
+- Use danishaddons module version 1.1.0
+
 [B]Version 1.0.1[/B]
 - Switched to MP4 video clips instead of WebM to get VDPAU acceleration on linux
 
