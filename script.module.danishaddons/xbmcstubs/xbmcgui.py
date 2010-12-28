@@ -18,10 +18,10 @@ class DialogProgress():
 
 
 class ListItem():
-    def __init__(self, title, iconImage = None, thumbnailImage = None):
+    def __init__(self, title = None, iconImage = None, thumbnailImage = None, path = None):
         self.title = title
         self.iconImage = iconImage
-        self.url = None
+        self.url = path
 
     def setInfo(self, type, infoLabels):
         pass

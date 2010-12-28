@@ -18,12 +18,14 @@ def addSortMethod(handle, sortMethod):
 def addDirectoryItem(handle, url, item, isFolder = True):
     item.url = url
     items.append(item)
-    if(verbose):
+    if verbose:
         print "ListItem: %s" % item.title
         print "\turl: %s" % item.url
 
 def endOfDirectory(handle):
     pass
 
-
-  
+def setResolvedUrl(handle, success, item):
+    items.append(item)
+    if verbose:
+        print "ResolvedUrl: %s" % item.url
