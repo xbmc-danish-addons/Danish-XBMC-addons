@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.yousee.tv" version="1.0.0" name="YouSee Web-tv" provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.danishaddons" version="1.1.0"/>
+        <import addon="script.module.elementtree" version="2.0.10"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Web-tv fra YouSee</summary>
+        <description>Se de tv kanaler som du også har adgang til fra www.yousee.tv. Kræver login på yousee.tv</description>
+        <platform>all</platform>
+    </extension>
+</addon>

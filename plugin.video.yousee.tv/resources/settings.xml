@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+	<category label="YouSee">
+		<setting id="username" label="Brugernavn" type="text" />
+        <setting id="password" label="Adgangskode" type="text" />
+        <setting id="quality" label="Hastighed (kbit)" type="labelenum" default="1200" values="600|1200" />
+	</category>
+</settings>
+
