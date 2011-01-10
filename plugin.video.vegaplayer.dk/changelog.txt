@@ -1,0 +1,2 @@
+[B]Version 1.0.0[/B]
+- Initial version loosely based on plugin.video.vega found at https://github.com/Tenzer/plugin.video.vega
