@@ -1,143 +1,71 @@
 # coding=utf-8
-import os, re, urllib, urllib2, datetime
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-from danishaddons import *
+import os
+import sys
+
+import xbmc
+import xbmcgui
+import xbmcplugin
+import xbmcaddon
+
+import danishaddons
+import danishaddons.web
+
+import sources.tv2nord
+import sources.tv2syd
+import sources.tv2fyn
+import sources.tv2oj
+import sources.tv2lorry
+import sources.tv2midtvest
+import sources.tv2east
+import sources.tv2bornholm
 
 REGIONS = [
-	{'name' : 'TV Syd', 'id' : '1'},
-	{'name' : 'TV2/Fyn', 'id' : '2'},
-	{'name' : 'TV2/Øst', 'id' : '3'},
-	{'name' : 'TV2/Nord', 'id' : '4'},
-	{'name' : 'TV2/Lorry', 'id' : '5'},
-	{'name' : 'TV2/Midt-Vest', 'id' : '6'},
-	{'name' : 'TV2/Østjylland', 'id' : '7'},
-	{'name' : 'TV2/Bornholm', 'id' : '8'},
-	{'name' : 'Danmark Rundt', 'id' : '9'},
+    {'name' : 'TV Syd', 'slug' : sources.tv2syd.SLUG},
+    {'name' : 'TV2/Fyn', 'slug' : sources.tv2fyn.SLUG},
+    {'name' : 'TV2/Øst', 'slug' : sources.tv2east.SLUG},
+    {'name' : 'TV2/Nord', 'slug' : sources.tv2nord.SLUG},
+    {'name' : 'TV2/Lorry', 'slug' : sources.tv2lorry.SLUG},
+    {'name' : 'TV2/Midt-Vest', 'slug' : sources.tv2midtvest.SLUG},
+    {'name' : 'TV2/Østjylland', 'slug' : sources.tv2oj.SLUG},
+
+# todo tv2bornholm bruger rtmp over ssl
+#    {'name' : 'TV2/Bornholm', 'slug' : sources.tv2bornholm.SLUG},
 ]
 
 def showRegions():
-	for idx, r in enumerate(REGIONS):
-		icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
-		item = xbmcgui.ListItem(r['name'], iconImage = icon)
-		url = ADDON_PATH + '?idx=' + str(idx)
-		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
+    for r in REGIONS:
+        if r['slug'] is not None:
+            icon = os.getcwd() + "/resources/logos/%s.png" % r['slug']
+            item = xbmcgui.ListItem(r['name'], iconImage = icon)
+            url = danishaddons.ADDON_PATH + '?slug=' + r['slug']
+            xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item, True)
 
-	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
-	xbmcplugin.endOfDirectory(ADDON_HANDLE)
-
-
-def showDatesFromLastWeek(idx):
-	r = REGIONS[int(idx)]
-
-	html = web.downloadAndCacheUrl('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], os.path.join(ADDON_DATA_PATH, 'region_%s.html' % r['id']), 60)
-	icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
-
-	for m in re.finditer("\('calSearch','([0-9]+)'\)", html):
-		date = calculateDate(m.group(1))
-		item = xbmcgui.ListItem(date.strftime('%A, den %d. %B %Y'), iconImage = icon)
-		item.setInfo('video', {
-			'date' : date.strftime('%d.%m.%Y')
-		})
-
-		url = ADDON_PATH + '?date=' + date.strftime('%Y%m%d') + '&idx=' + idx
-		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item, True)
-
-	xbmcplugin.setContent(ADDON_HANDLE, 'tvshows')
-	xbmcplugin.addSortMethod(ADDON_HANDLE, xbmcplugin.SORT_METHOD_DATE)
-	xbmcplugin.endOfDirectory(ADDON_HANDLE)
-
-def showClips(dateStr, idx):
-	y = int(dateStr[0:4])
-	m = int(dateStr[4:6])
-	d = int(dateStr[6:8])
-	date = datetime.date(y, m, d)
-
-	loadClipsForDate(date, idx)
+    xbmcplugin.addSortMethod(danishaddons.ADDON_HANDLE, xbmcplugin.SORT_METHOD_LABEL)
+    xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE)
 
 
-def loadClipsForDate(date, idx):
-	r = REGIONS[int(idx)]
-	dateId = calculateDateId(date)
+if __name__ == '__main__':
+    danishaddons.init(sys.argv)
 
-	# Find ASP.NET initial page state
-	initialState = web.downloadAndCacheUrl('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], 'initialstate.html', 0)
+    if danishaddons.ADDON_PARAMS.has_key('slug'):
+        slug = danishaddons.ADDON_PARAMS['slug']
 
-	# Retrieve actual page
-	viewState = re.search('id="__VIEWSTATE" value="([^"]*)"', initialState).group(1)
-	eventValidation = re.search('id="__EVENTVALIDATION" value="([^"]*)"', initialState).group(1)
-
-	data = {
-		'__EVENTTARGET' : 'calSearch',
-		'__EVENTARGUMENT' : dateId,
-		'__VIEWSTATE' : viewState,
-		'__EVENTVALIDATION' : eventValidation,
-		'rbAdvSearch' : '0'
-	}
-
-	req = urllib2.Request('http://www.tv2regionerne.dk/search.aspx?r=%s' % r['id'], urllib.urlencode(data))
-	html = web.downloadAndCacheUrl(req, os.path.join(ADDON_DATA_PATH, 'searchresult.html'), 0)
-	icon = os.getcwd() + "/resources/logos/%s.png" % r['id']
-
-	count = 0
-	for m in re.finditer('(id="udsendelse">([^<]+)</div>.*?)?player.aspx\?id=([0-9]+)[^>]+>([^<]+)</a>.*?\(([0-9:]+)\).*?class="beskrivelse"[^>]+>([^<]+)</td>', html, re.DOTALL):
-		time = m.group(2)
-		id = m.group(3)
-		title = m.group(4)
-		duration = m.group(5)
-		description = m.group(6)
-
-		if(time != None):
-			title = title + ' (' + time + ')'
-
-		item = xbmcgui.ListItem(title, iconImage = icon)
-		item.setInfo(type = 'video', infoLabels = {
-			'title' : title,
-			'duration' : duration,
-			'plot' : description
-		})
-		url = ADDON_PATH + '?id=' + str(id)
-		xbmcplugin.addDirectoryItem(ADDON_HANDLE, url, item)
-
-		count += 1
-	
-	if(count > 0):
-		xbmcplugin.setContent(ADDON_HANDLE, 'episodes')
-		xbmcplugin.endOfDirectory(ADDON_HANDLE)
-	else:
-		xbmcgui.Dialog().ok('Intet indhold', 'Der er ingen udsendelser for denne dato.\nPrøv igen senere.')
-
-
-def playClip(id):
-	playlist = web.downloadAndCacheUrl('http://www.tv2regionerne.dk/Video.aspx?id=' + id, os.path.join(ADDON_DATA_PATH, 'clip_' + id + '.asx'), 0)
-
-	m = re.search('<ref href="([^"]+)"', playlist, re.IGNORECASE)
-	href = m.group(1)
-
-	m = re.search('<starttime value="([^"]+)" />', playlist, re.IGNORECASE)
-	starttime = m.group(1)
-	parts = starttime.split(':')
-	seconds = (int(parts[0]) * 3600) + (int(parts[1]) * 60) + int(parts[2])
-
-	player = xbmc.Player()
-	player.play(href)
-	player.seekTime(seconds)
-
-
-def calculateDateId(date):
-	delta = date - datetime.date(2000, 1, 1)
-
-	return delta.days
-
-def calculateDate(dateId):
-	return datetime.date(2000, 1, 1) + datetime.timedelta(int(dateId))
-
-
-if(ADDON_PARAMS.has_key('date') and ADDON_PARAMS.has_key('idx')):
-	showClips(ADDON_PARAMS['date'], ADDON_PARAMS['idx'])
-elif(ADDON_PARAMS.has_key('id')):
-	playClip(ADDON_PARAMS['id'])
-elif(ADDON_PARAMS.has_key('idx')):
-	showDatesFromLastWeek(ADDON_PARAMS['idx'])
-else:
-	showRegions()
+        if slug == sources.tv2nord.SLUG:
+            sources.tv2nord.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2syd.SLUG:
+            sources.tv2syd.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2fyn.SLUG:
+            sources.tv2fyn.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2oj.SLUG:
+            sources.tv2oj.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2lorry.SLUG:
+            sources.tv2lorry.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2midtvest.SLUG:
+            sources.tv2midtvest.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2east.SLUG:
+            sources.tv2east.invoke(danishaddons.ADDON_PARAMS)
+        elif slug == sources.tv2bornholm.SLUG:
+            sources.tv2bornholm.invoke(danishaddons.ADDON_PARAMS)
+    else:
+        showRegions()
 
