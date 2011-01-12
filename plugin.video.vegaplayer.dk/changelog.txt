@@ -1,2 +1,5 @@
+[B]Version 1.0.1[/B]
+- Don't sort songs by date
+
 [B]Version 1.0.0[/B]
 - Initial version loosely based on plugin.video.vega found at https://github.com/Tenzer/plugin.video.vega

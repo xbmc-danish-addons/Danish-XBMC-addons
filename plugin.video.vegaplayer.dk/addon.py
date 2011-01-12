@@ -71,7 +71,6 @@ def listConcert(uuid):
 
         idx += 1
 
-    xbmcplugin.addSortMethod(danishaddons.ADDON_HANDLE, xbmcplugin.SORT_METHOD_DATE)
     xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE)
 
 
