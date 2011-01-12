@@ -12,8 +12,10 @@
         <provides>audio</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>DR's Netradio kanaler</summary>
-        <description>DR's Netradio kanaler</description>
+        <summary lang="en">Danish Broadcasting Corporation (DR) netradios</summary>
+        <summary lang="da">DR's netradio kanaler</summary>
+        <description>Lyt til en lang række af DR's radiokanaler, inkl. P1, P2 og P3.</description>
+        <description>Listen to many of DR's radiochannel, including P1, P2 and P3.</description>
         <license>GPL 2.0</license>
         <platform>all</platform>
     </extension>
