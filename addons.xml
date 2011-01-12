@@ -16,14 +16,37 @@
 </addon>
 
 <addon
+	id="plugin.video.tv2regionerne.dk"
+	version="1.1.0"
+	name="TV2/Regionerne"
+	provider-name="twinther [tommy@winther.nu]">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="script.module.danishaddons" version="1.0.0"/>
+        <import addon="script.module.simplejson" version="2.0.10"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">The latests shows from the Danish regions</summary>
+		<summary lang="da">De seneste udsendelser fra regionerne</summary>
+		<description lang="en">Watch the latest few days of shows from the Danish regions[CR]The shows are available in full length, so XBMC must seek within the file to fine each part. For this reason the image may be distorted the first couple of seconds</description>
+		<description lang="da">Se de seneste dages udsendelser fra landets regioner.[CR]Udsendelserne bliver langt ud i fuld længde, så XBMC må søge i filen for at finde de enkelte indslag. Af den grund kan billede se mærkeligt ud de første par sekunder.</description>
+		<license>GPL 2.0</license>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon
 	id="plugin.video.videovideo.dk"
-	version="1.0.2"
+	version="1.1.0"
 	name="videovideo.dk HD"
 	provider-name="twinther [tommy@winther.nu]">
 	<requires>
 		<import addon="xbmc.python" version="1.0"/>
 		<import addon="script.module.danishaddons" version="1.1.0"/>
-		<import addon="script.module.feedparser" version="4.1"/>
+		<import addon="script.module.simplejson" version="2.0.10"/>
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>video</provides>
@@ -71,6 +94,46 @@
 	</extension>
 </addon>
 
+<addon id="plugin.video.vegaplayer.dk" version="1.0.0" name="VEGA Player" provider-name="twinther [tommy@winther.nu]">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+	<import addon="script.module.elementtree" version="2.0.10"/>
+    <import addon="script.module.danishaddons" version="1.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+	  <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>VEGA &amp; TDC Playeren</summary>
+    <description>Se unikke koncertoptagelser fra VEGA i professionel lyd- og billedkvalitet gratis på nettet i VEGA &amp; TDCs streaming-player.</description>
+		<license>GPLv3</license>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon
+        id="plugin.video.dmi.dk"
+        version="1.0.0"
+        name="DMI TV Vejrudsigt"
+        provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.danishaddons" version="1.1.0"/>
+        <import addon="script.module.simplejson" version="2.0.10"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">DMI TV weather forecast</summary>
+        <summary lang="da">DMI TV Vejrudsigt</summary>
+        <description lang="en">Watch the latest forecasts from DMI TV in HD</description>
+        <description lang="da">Se de seneste vejrudsigter fra DMI TV i HD</description>
+        <license>GPL 2.0</license>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon
 	id="plugin.video.gametest.dk"
 	version="1.0.1"
@@ -84,8 +147,10 @@
 		<provides>video</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary>Spil, toast og rock n' roll</summary>
-		<description>Gametest er et et uafhængigt, profitløst spilmagasin, drevet af ildsjæle. Vi brænder for spil, og for at guide dig igennem den store, indviklede spiljungle.[CR]En gang hver 14. dag fyldes redaktionens faciliteter med stornørdede diskusioner og vise ord fra en flok erfarne gamere, der ikke er bange for at kimse af fesenhed eller hylde det store spilmedie, når det er nødvendigt.[CR]Vores fortjeneste består af de spil vi anmelder, samt toast og cola i rige mængder, når den næste studieproduktion finder sted.[CR]Vi er en nuanceret gruppe spilentusiaster med hang til både ekspressiv manga og eksploderende olietønder, og vores mål er, at levere det bedst mulige spilrelaterede forbrugerprogram.</description>
+		<summary lang="en">Games, toast and rock n' roll</summary>
+		<summary lang="da">Spil, toast og rock n' roll</summary>
+		<description lang="en">Gametest is an independent, non-profit game magazine, run by enthusiasts.</description>
+		<description lang="da">Gametest er et et uafhængigt, profitløst spilmagasin, drevet af ildsjæle. Vi brænder for spil, og for at guide dig igennem den store, indviklede spiljungle.[CR]En gang hver 14. dag fyldes redaktionens faciliteter med stornørdede diskusioner og vise ord fra en flok erfarne gamere, der ikke er bange for at kimse af fesenhed eller hylde det store spilmedie, når det er nødvendigt.[CR]Vores fortjeneste består af de spil vi anmelder, samt toast og cola i rige mængder, når den næste studieproduktion finder sted.[CR]Vi er en nuanceret gruppe spilentusiaster med hang til både ekspressiv manga og eksploderende olietønder, og vores mål er, at levere det bedst mulige spilrelaterede forbrugerprogram.</description>
 		<license>GPL 2.0</license>
 		<platform>all</platform>
 	</extension>
@@ -112,6 +177,28 @@
 		<license>GPL 2.0</license>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon
+        id="plugin.audio.dr.dk.netradio"
+        version="1.0.0"
+        name="DR.dk Netradio"
+        provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.danishaddons" version="1.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>audio</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Danish Broadcasting Corporation (DR) netradios</summary>
+        <summary lang="da">DR's netradio kanaler</summary>
+        <description>Lyt til en lang række af DR's radiokanaler, inkl. P1, P2 og P3.</description>
+        <description>Listen to many of DR's radiochannel, including P1, P2 and P3.</description>
+        <license>GPL 2.0</license>
+        <platform>all</platform>
+    </extension>
 </addon>
 
 <addon
@@ -146,8 +233,27 @@
         <provides>video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>DR Pirat TV</summary>
-        <description>Watch shows from www.dr.dk/pirattv</description>
+        <summary lang="en">Danish Broadcasting Corporation (DR) Pirate TV</summary>
+        <summary lang="da">DR Pirat TV</summary>
+        <description lang="en">Watch shows from dr.dk/pirattv</description>
+        <description lang="da">Se indslag fra dr.dk/pirattv</description>
+        <license>GPL 2.0</license>
+        <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="plugin.video.yousee.tv" version="1.0.0" name="YouSee Web-tv" provider-name="twinther [tommy@winther.nu]">
+    <requires>
+        <import addon="xbmc.python" version="1.0"/>
+        <import addon="script.module.danishaddons" version="1.1.0"/>
+        <import addon="script.module.elementtree" version="2.0.10"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Web-tv fra YouSee</summary>
+        <description>Se de tv kanaler som du også har adgang til fra www.yousee.tv. Kræver login på yousee.tv</description>
         <platform>all</platform>
     </extension>
 </addon>
@@ -168,6 +274,7 @@
 All programs that DR has the rights to show on the internet is available in DR NU. The typically means DR's own programs, news, sports and magazine - but not movies and some international tv-shows.</description>
     <description lang="da">Se de seneste udsendelser fra DR.dk/nu[BR][BR]
 Alle de programmer, DR har rettigheder til at vise på nettet, vil være at finde i DR NU. Dette gælder typisk DR's egne programmer, nyheder, sport og magasiner - men ikke film eller visse udenlandske tv-serier.</description>
+    <license>GPL 2.0</license>
     <platform>all</platform>
   </extension>
 </addon>
@@ -190,7 +297,7 @@ Alle de programmer, DR har rettigheder til at vise på nettet, vil være at find
 
 <addon id="script.tvguide"
        name="Danish TV Guide"
-       version="0.2.1"
+       version="0.2.2"
        provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python"/>
