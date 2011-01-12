@@ -1,3 +1,6 @@
+[B]Version 1.0.2[/B]
+- Handle RTMP URL's with spaces, fx Alpha Beat
+
 [B]Version 1.0.1[/B]
 - Don't sort songs by date
 

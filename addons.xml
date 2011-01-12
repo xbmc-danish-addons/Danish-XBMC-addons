@@ -94,7 +94,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.vegaplayer.dk" version="1.0.1" name="VEGA Player" provider-name="twinther [tommy@winther.nu]">
+<addon id="plugin.video.vegaplayer.dk" version="1.0.2" name="VEGA Player" provider-name="twinther [tommy@winther.nu]">
   <requires>
     <import addon="xbmc.python" version="1.0"/>
 	<import addon="script.module.elementtree" version="2.0.10"/>

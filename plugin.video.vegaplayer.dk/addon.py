@@ -80,7 +80,7 @@ def playVideo(uuid, startSeconds):
     doc = ElementTree.fromstring(concertXml)
 
     description = doc.findtext('concert/name') + ' - ' + (doc.findtext('concert/venue') + ' - ' + doc.findtext('concert/date'))
-    url = RTMP_URL % doc.findtext('concert/stream')[4:]
+    url = RTMP_URL % doc.findtext('concert/stream')[4:].replace(' ', '%20')
 
     iconImage = BASE_URL % doc.findtext('concert/teaserimage')
     item = xbmcgui.ListItem(description, thumbnailImage = iconImage)
