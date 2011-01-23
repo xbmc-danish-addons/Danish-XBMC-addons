@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.movie.quiz"
+       name="Movie Quiz"
+       version="0.0.2"
+       provider-name="twinther [tommy@winther.nu]">
+  <requires>
+    <import addon="xbmc.python"/>
+		<import addon="script.module.danishaddons" version="1.1.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="addon.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary>Movie Quiz</summary>
+    <description></description>
+    <platform>all</platform>
+  </extension>
+</addon>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <allowoverlay>no</allowoverlay>
+    <defaultcontrol always="true">4000</defaultcontrol>
+    <coordinates>
+        <system>1</system>
+        <posx>0</posx>
+        <posy>0</posy>
+    </coordinates>
+    <controls>
+        <!-- Background -->
+        <control type="image">
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <texture>quiz-background.png</texture>
+        </control>
+
+        <control type="videowindow" id="2">
+            <posx>256</posx>
+            <posy>34</posy>
+            <width>768</width>
+            <height>432</height>
+            <visible>true</visible>
+        </control>
+        <control type="image" id="4400">
+            <posx>256</posx>
+            <posy>34</posy>
+            <width>768</width>
+            <height>432</height>
+            <visible>true</visible>
+            <aspectratio>keep</aspectratio>
+        </control>
+
+        <control type="label" id="4100">
+            <posx>25</posx>
+            <posy>25</posy>
+            <width>125</width>
+            <height>40</height>
+            <label>Correct:</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+        </control>
+        <control type="label" id="4101">
+            <posx>200</posx>
+            <posy>25</posy>
+            <width>100</width>
+            <height>40</height>
+            <label>n/a</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <align>right</align>
+        </control>
+
+        <control type="label" id="4102">
+            <posx>25</posx>
+            <posy>65</posy>
+            <width>125</width>
+            <height>40</height>
+            <label>Wrong:</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+        </control>
+        <control type="label" id="4103">
+            <posx>200</posx>
+            <posy>65</posy>
+            <width>100</width>
+            <height>40</height>
+            <label>n/a</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <align>right</align>
+        </control>
+
+
+        <control type="image" id="4200">
+            <posx>25</posx>
+            <posy>500</posy>
+            <width>132</width>
+            <height>200</height>
+            <aspectratio>keep</aspectratio>
+        </control>
+
+        <control type="image">
+            <posx>182</posx>
+            <posy>500</posy>
+            <width>1075</width>
+            <height>40</height>
+            <texture>quiz-question-background.png</texture>
+        </control>
+        <control type="label" id="4300">
+            <posx>182</posx>
+            <posy>500</posy>
+            <width>1075</width>
+            <height>40</height>
+            <textoffsetx>8</textoffsetx>
+            <textoffsety>4</textoffsety>
+            <label>Question ?</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+        </control>
+
+        <!-- Answer buttons -->
+        <control type="button" id="4000">
+            <posx>182</posx>
+            <posy>540</posy>
+            <width>1075</width>
+            <height>40</height>
+            <textoffsetx>8</textoffsetx>
+            <textoffsety>4</textoffsety>
+            <label>Answer 1</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <texturefocus>quiz-button-background.png</texturefocus>
+            <texturenofocus />
+            <onup>4003</onup>
+            <ondown>4001</ondown>
+        </control>
+        <control type="button" id="4001">
+            <posx>182</posx>
+            <posy>580</posy>
+            <width>1075</width>
+            <height>40</height>
+            <textoffsetx>8</textoffsetx>
+            <textoffsety>4</textoffsety>
+            <label>Answer 2</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <texturefocus>quiz-button-background.png</texturefocus>
+            <texturenofocus />
+            <onup>4000</onup>
+            <ondown>4002</ondown>
+        </control>
+        <control type="button" id="4002">
+            <posx>182</posx>
+            <posy>620</posy>
+            <width>1075</width>
+            <height>40</height>
+            <textoffsetx>8</textoffsetx>
+            <textoffsety>4</textoffsety>
+            <label>Answer 3</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <texturefocus>quiz-button-background.png</texturefocus>
+            <texturenofocus />
+            <onup>4001</onup>
+            <ondown>4003</ondown>
+        </control>
+        <control type="button" id="4003">
+            <posx>182</posx>
+            <posy>660</posy>
+            <width>1075</width>
+            <height>40</height>
+            <textoffsetx>8</textoffsetx>
+            <textoffsety>4</textoffsety>
+            <label>Answer 4</label>
+            <textcolor>ffffffff</textcolor>
+            <font>font13</font>
+            <texturefocus>quiz-button-background.png</texturefocus>
+            <texturenofocus />
+            <onup>4002</onup>
+            <ondown>4000</ondown>
+        </control>
+
+    </controls>
+</window>

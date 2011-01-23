@@ -1,0 +1,15 @@
+Version 0.0.2 - 2011-01-23
+- Multiple question types
+  - What movie is this?
+  - What movie is actor not in?
+  - What year was movie released?
+
+  - Who directed this movie?
+  - What tagline belongs to this movie?
+  - What studio released this movie?
+  - Who wrote this movie?
+
+Version 0.0.1 - 2011-01-22
+- Proof of concept
+- Backdrop image from http://www.htbackdrops.com/v2/displayimage.php?album=14&pid=7082
+
