@@ -1,5 +1,31 @@
 __author__ = 'twi'
 
+class WindowXML():
+    def __init__(self, xmlFilename, scriptPath, defaultSkin = 'Default', forceFallback = False):
+        pass
+
+    def close(self):
+        pass
+
+    def getControl(self, controlId):
+        return Control(0, 0, 100, 100, 'Dummy Control')
+
+    def doModal(self):
+        pass
+
+    def getFocusId(self):
+        pass
+
+class Control():
+    def __init__(self, x, y, width, height, label, focusTexture = None, noFocusTexture = None,
+                 textOffsetX = None, textOffsetY = None, alignment = None, font = None, textColor = None,
+                 disabledColor = None, angle = None, shadowColor = None, focusedColor = None):
+        pass
+
+    def setLabel(self, label = None, font = None, textColor = None, disabledColor = None, shadowColor = None, focusedColor = None):
+        pass
+
+
 class DialogProgress():
     def __init__(self):
         pass
