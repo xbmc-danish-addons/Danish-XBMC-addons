@@ -25,6 +25,13 @@ class Control():
     def setLabel(self, label = None, font = None, textColor = None, disabledColor = None, shadowColor = None, focusedColor = None):
         pass
 
+class Dialog():
+    def __init__(self):
+        pass
+
+    def ok(self, line1 = None, line2 = None, line3 = None):
+        pass
+
 
 class DialogProgress():
     def __init__(self):

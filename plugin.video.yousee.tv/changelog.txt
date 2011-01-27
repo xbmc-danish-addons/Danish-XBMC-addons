@@ -1,2 +1,5 @@
+[B]Version 1.0.1[/B]
+- Updated to use new login system on yousee.tv
+
 [B]Version 1.0.0[/B]
 - Initial release.
