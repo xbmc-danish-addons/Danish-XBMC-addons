@@ -4,6 +4,7 @@ items = list()
 verbose = False
 
 SORT_METHOD_LABEL = 1
+SORT_METHOD_DATE = 3
 SORT_METHOD_TITLE = 9
 
 def setContent(handle, type):

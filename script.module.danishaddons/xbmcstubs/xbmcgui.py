@@ -1,5 +1,11 @@
 __author__ = 'twi'
 
+def lock():
+    pass
+
+def unlock():
+    pass
+
 class WindowXML():
     def __init__(self, xmlFilename, scriptPath, defaultSkin = 'Default', forceFallback = False):
         pass
@@ -14,6 +20,10 @@ class WindowXML():
         pass
 
     def getFocusId(self):
+        pass
+
+class WindowXMLDialog(WindowXML):
+    def __init__(self, xmlFilename, scriptPath, defaultSkin = 'Default', forceFallback = False):
         pass
 
 class Control():
@@ -63,4 +73,7 @@ class ListItem():
         self.label2 = label2
 
     def setProperty(self, property, value):
+        pass
+
+    def addContextMenuItems(self, script, args = None):
         pass
