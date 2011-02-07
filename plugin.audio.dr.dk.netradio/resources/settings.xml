@@ -2,6 +2,7 @@
 <settings>
 	<category label="Generelt">
 		<setting id="quality" label="Kvalitet" type="labelenum" default="High" values="High|Medium|Low" />
+		<setting id="format" label="Format" type="labelenum" default="AAC" values="AAC|WMA" />
 	</category>
 </settings>
 
