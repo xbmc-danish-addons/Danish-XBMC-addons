@@ -1,3 +1,6 @@
+[B]Version 1.0.6[/B]
+- Prepare for official XBMC repository
+
 [B]Version 1.0.5[/B]
 - Updated to danishaddons module 1.1.0
 

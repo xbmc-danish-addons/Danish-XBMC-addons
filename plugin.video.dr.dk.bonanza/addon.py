@@ -1,11 +1,11 @@
 import os
 import re
+import sys
 import simplejson
 
 import xbmc
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
 
 import danishaddons
 import danishaddons.web
@@ -16,9 +16,8 @@ BASE_URL = 'http://www.dr.dk/Bonanza/'
 def search():
     keyboard = xbmc.Keyboard('', danishaddons.msg(30001))
     keyboard.doModal()
-    if (keyboard.isConfirmed()):
-        html = danishaddons.web.downloadAndCacheUrl('http://www.dr.dk/bonanza/search.htm?&type=video&limit=120&needle=' + keyboard.getText().replace(' ', '+'),
-            os.path.join(danishaddons.ADDON_DATA_PATH, 'search.html'), 0) # don't cache search results
+    if keyboard.isConfirmed():
+        html = danishaddons.web.downloadUrl('http://www.dr.dk/bonanza/search.htm?&type=video&limit=120&needle=' + keyboard.getText().replace(' ', '+')) # don't cache search results
         addContent(html)
         xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE)
         xbmcplugin.setContent(danishaddons.ADDON_HANDLE, 'episodes')
@@ -107,28 +106,28 @@ def addContent(html):
         json = simplejson.loads(raw)
 
         infoLabels = {}
-        if(json['Title'] is not None):
+        if json['Title'] is not None:
             infoLabels['title'] = danishaddons.web.decodeHtmlEntities(json['Title'])
-        if(json['Description'] is not None):
+        if json['Description'] is not None:
             infoLabels['plot'] = danishaddons.web.decodeHtmlEntities(json['Description'])
-        if(json['Colophon'] is not None):
+        if json['Colophon'] is not None:
             infoLabels['writer'] = danishaddons.web.decodeHtmlEntities(json['Colophon'])
-        if(json['Actors'] is not None):
+        if json['Actors'] is not None:
             infoLabels['cast'] = danishaddons.web.decodeHtmlEntities(json['Actors'])
-        if(json['Rating'] is not None):
+        if json['Rating'] is not None:
             infoLabels['rating'] = json['Rating']
-        if(json['FirstPublished'] is not None):
+        if json['FirstPublished'] is not None:
             infoLabels['year'] = int(json['FirstPublished'][:4])
-        if(json['Duration'] is not None):
+        if json['Duration'] is not None:
             infoLabels['duration'] = danishaddons.info.secondsToDuration(int(json['Duration']) / 1000)
 
         item = xbmcgui.ListItem(infoLabels['title'], iconImage = findFileLocation(json, 'Thumb'))
         item.setInfo('video', infoLabels)
 
         rtmp_url = findFileLocation(json, 'VideoHigh')
-        if(rtmp_url is None):
+        if rtmp_url is None:
             rtmp_url = findFileLocation(json, 'VideoMid')
-        if(rtmp_url is None):
+        if rtmp_url is None:
             rtmp_url = findFileLocation(json, 'VideoLow')
 
         # patch rtmp_url to work with mplayer
@@ -140,21 +139,21 @@ def addContent(html):
 
 def findFileLocation(json, type):
     for file in json['Files']:
-        if(file['Type'] == type):
+        if file['Type'] == type:
             return file['Location']
     return None
 
 
-if(__name__ == '__main__'):
+if __name__ == '__main__':
     danishaddons.init(sys.argv)
     
-    if(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'subcat'):
+    if danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'subcat':
         showSubCategories(danishaddons.ADDON_PARAMS['url'], danishaddons.ADDON_PARAMS['title'])
-    elif(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'content'):
+    elif danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'content':
         showContent(danishaddons.ADDON_PARAMS['url'], danishaddons.ADDON_PARAMS['title'])
-    elif(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'search'):
+    elif danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'search':
         search()
-    elif(danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'recommend'):
+    elif danishaddons.ADDON_PARAMS.has_key('mode') and danishaddons.ADDON_PARAMS['mode'] == 'recommend':
         showRecommendations()
     else:
         showCategories()
