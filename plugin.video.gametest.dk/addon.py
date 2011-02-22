@@ -2,10 +2,8 @@ import re
 import os
 import sys
 
-import xbmc
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
 
 import danishaddons
 import danishaddons.web
@@ -17,9 +15,9 @@ REVIEWS_URL = BASE_URL + 'index.php?anmeldelser=alle'
 PAGE_URL = BASE_URL + 'index.php?page=%s'
 
 CATEGORIES = [
-    {'title' : 'Anmeldelser', 'params' : 'reviews'},
-    {'title' : 'Retro', 'params' : 'retro'},
-    {'title' : 'Stunts', 'params' : 'stunts'},
+    {'title' : 30010, 'params' : 'reviews'},
+    {'title' : 30011, 'params' : 'retro'},
+    {'title' : 30012, 'params' : 'stunts'},
 ]
 
 def showOverview():
@@ -27,21 +25,22 @@ def showOverview():
 
     m = re.search('Sendt den ([^<]+).*?<ul>(.*?)</ul>', html, re.DOTALL)
     date = m.group(1)
-    title = 'Seneste udsendelse: %s' % date
-    games = m.group(2)
+    title = danishaddons.msg(30000) % date
+    games = m.group(2).replace('<li>', '').replace('</li>', '\n')
 
-    icon = os.path.join(os.getcwd(), 'icon.png')
+    path = danishaddons.ADDON.getAddonInfo('path')
+    icon = os.path.join(path, 'icon.png')
     item = xbmcgui.ListItem(title, iconImage = icon)
     item.setInfo('video', {
         'title' : title,
-        'plot' : 'Spil testet:' + games.replace('<li>', '').replace('</li>', '\n'),
+        'plot' : str(danishaddons.msg(30001)) + games,
         'date' : date.replace('-', '.')
     })
     url = FLV_URL % ('file', 'Programmet')
     xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item)
 
     for idx, c in enumerate(CATEGORIES):
-        item = xbmcgui.ListItem(c['title'], iconImage = icon)
+        item = xbmcgui.ListItem(danishaddons.msg(c['title']), iconImage = icon)
         url = danishaddons.ADDON_PATH + '?' + c['params']
         xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item, True)
 
@@ -103,11 +102,11 @@ def showPage(page):
 if __name__ == '__main__':
     danishaddons.init(sys.argv)
 
-    if(danishaddons.ADDON_PARAMS.has_key('reviews')):
+    if danishaddons.ADDON_PARAMS.has_key('reviews'):
         showReviews()
-    elif(danishaddons.ADDON_PARAMS.has_key('retro')):
+    elif danishaddons.ADDON_PARAMS.has_key('retro'):
         showPage('retro')
-    elif(danishaddons.ADDON_PARAMS.has_key('stunts')):
+    elif danishaddons.ADDON_PARAMS.has_key('stunts'):
         showPage('stunts')
     else:
         showOverview()
