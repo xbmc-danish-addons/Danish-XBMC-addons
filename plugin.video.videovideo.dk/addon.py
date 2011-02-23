@@ -2,15 +2,12 @@ import re
 import os
 import sys
 
-import xbmc
-import xbmcaddon
 import xbmcgui
 import xbmcplugin
 
 import simplejson
 import danishaddons
 import danishaddons.web
-import feedparser
 
 SHOWS_URL = 'http://videovideo.dk/shows/json/'
 EPISODES_URL = 'http://videovideo.dk/episodes/json/show_id/%s'

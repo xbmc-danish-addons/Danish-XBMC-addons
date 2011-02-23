@@ -1,3 +1,6 @@
+[B]Version 1.1.1[/B]
+- Prepare for official repository
+
 [B]Version 1.1.0[/B]
 - Rewrote to use json feeds from videovideo.dk
 
