@@ -1,3 +1,6 @@
+[B]Version 1.0.3[/B]
+- Fixed icon
+
 [B]Version 1.0.2[/B]
 - Prepare for official repository
 - Added translations
