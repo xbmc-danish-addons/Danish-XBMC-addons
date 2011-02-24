@@ -28,4 +28,7 @@ class Addon:
 
     def setSetting(self, key, value):
         settings[key] = value
+
+    def openSettings(self):
+        pass
   

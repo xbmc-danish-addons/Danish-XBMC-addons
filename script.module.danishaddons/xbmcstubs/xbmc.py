@@ -11,6 +11,9 @@ def sleep(time):
 def getCacheThumbName(fileName):
     pass
 
+def log(msg, level = None):
+    pass
+
 class Keyboard:
     def __init__(self, text, title):
         pass

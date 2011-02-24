@@ -22,6 +22,9 @@ class WindowXML():
     def getFocusId(self):
         pass
 
+    def setFocusId(self, controlId):
+        pass
+
 class WindowXMLDialog(WindowXML):
     def __init__(self, xmlFilename, scriptPath, defaultSkin = 'Default', forceFallback = False):
         pass
