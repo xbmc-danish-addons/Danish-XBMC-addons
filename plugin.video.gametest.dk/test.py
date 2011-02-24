@@ -18,6 +18,7 @@ class TestGametestDk(unittest.TestCase):
         xbmcplugin.items = list()
 
     def testShowOverview(self):
+	xbmcaddon.strings[30000] = 'Date: %s'
         addon.showOverview()
 
         self.assertNotEquals(0, len(xbmcplugin.items), msg = 'Expected at least one ListItem')
