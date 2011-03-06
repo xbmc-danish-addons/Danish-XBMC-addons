@@ -2,10 +2,8 @@ import os
 import re
 import sys
 
-import xbmc
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
 
 import danishaddons
 import danishaddons.web
@@ -46,7 +44,7 @@ CHANNELS = \
     ('DR Nyheder', 'Channel1_HQ')
 
 def showChannels():
-    icon = os.path.join(os.getcwd(), 'icon.png')
+    icon = os.path.join(danishaddons.ADDON_PATH, 'icon.png')
 
     format = danishaddons.ADDON.getSetting('format')
     if format == 'WMA':
@@ -84,7 +82,7 @@ def playStream(url):
     title = m.group(1)
     streamUrl = m.group(2)
 
-    item = xbmcgui.ListItem(path = streamUrl)
+    item = xbmcgui.ListItem(title = title, path = streamUrl)
     item.setInfo('music', {
         'artist' : 'DR',
         'title' : title
