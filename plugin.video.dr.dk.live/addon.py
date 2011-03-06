@@ -1,9 +1,9 @@
 import os
+import sys
 
 import xbmc
 import xbmcgui
 import xbmcplugin
-import xbmcaddon
 
 import danishaddons
 
@@ -62,7 +62,7 @@ def showChannels():
     for idx, c in enumerate(CHANNELS):
         icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
 
-        if(c['urls'].has_key(getQuality())):
+        if c['urls'].has_key(getQuality()):
             item = xbmcgui.ListItem(c['name'], iconImage = icon)
             url = danishaddons.ADDON_PATH + '?idx=' + str(idx)
             xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item, True)
@@ -71,14 +71,17 @@ def showChannels():
 
 def playChannel(idx):
     c = CHANNELS[int(idx)]
+    q = getQuality()
 
-    if(c['urls'].has_key(getQuality())):
-        item = xbmcgui.ListItem(c['name'])
+    icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
+
+    if c['urls'].has_key(q):
+        item = xbmcgui.ListItem(c['name'], thumbnailImage = icon)
         item.setProperty("IsLive", "true")
-        xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(c['urls'][getQuality()], item)
+        xbmc.Player().play(c['urls'][q], item)
     else:
         d = xbmcgui.Dialog()
-        d.ok(c['name'], danishaddons.msg(30001) % QUALITY.capitalize(), danishaddons.msg(30002))
+        d.ok(c['name'], danishaddons.msg(30001) % q.capitalize(), danishaddons.msg(30002))
 
 def getQuality():
     return danishaddons.ADDON.getSetting('quality').lower()

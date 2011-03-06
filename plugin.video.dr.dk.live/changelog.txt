@@ -1,4 +1,7 @@
 [B]Version 1.2.1[/B]
+- Prepare for official repository
+
+[B]Version 1.2.1[/B]
 - Updated to danishaddons module 1.1.0
 
 [B]Version 1.2.0[/B]

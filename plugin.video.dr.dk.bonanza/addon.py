@@ -27,7 +27,7 @@ def showCategories():
     xbmcplugin.setContent(danishaddons.ADDON_HANDLE, 'tvshows')
 
     html = danishaddons.web.downloadAndCacheUrl(BASE_URL, os.path.join(danishaddons.ADDON_DATA_PATH, 'categories.html'), 24 * 60)
-    icon = os.path.join(os.getcwd(), 'icon.png')
+    icon = os.path.join(danishaddons.ADDON_PATH, 'icon.png')
 
     item = xbmcgui.ListItem(danishaddons.msg(30001), iconImage = icon)
     xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, danishaddons.ADDON_PATH + '?mode=search', item, True)

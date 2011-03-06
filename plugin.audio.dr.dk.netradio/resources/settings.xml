@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category label="Generelt">
-		<setting id="quality" label="Kvalitet" type="labelenum" default="High" values="High|Medium|Low" />
-		<setting id="format" label="Format" type="labelenum" default="AAC" values="AAC|WMA" />
+        <setting id="format" label="Format" type="labelenum" default="AAC" values="AAC|WMA" />
+		<setting id="quality" label="Kvalitet" type="labelenum" default="High" values="High|Medium|Low" visible="eq(-1,1)"/>
 	</category>
 </settings>
 
