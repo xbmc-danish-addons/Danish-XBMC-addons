@@ -17,7 +17,7 @@ class Addon:
                 os.makedirs(dir)
             return dir
         elif(id.lower() == 'path'): # Addon path
-            return os.getcwd()	
+            return '.'
 
 
     def getLocalizedString(self, id):

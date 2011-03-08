@@ -14,7 +14,7 @@ import addon
 class TestDrDkPodcast(unittest.TestCase):
 
     def setUp(self):
-        danishaddons.init([os.getcwd(), '12345', ''])
+        danishaddons.init(['.', '12345', ''])
         xbmcplugin.items = list()
 
     def testShowOverview(self):

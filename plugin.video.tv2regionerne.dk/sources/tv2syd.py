@@ -29,7 +29,7 @@ def showClips(date=None):
 
     html = danishaddons.web.downloadAndCacheUrl(baseUrl, os.path.join(
             danishaddons.ADDON_DATA_PATH, '%s_%s.html' % (SLUG, dateSlug)), 60)
-    #icon = os.getcwd() + "/resources/logos/%s.png" % SLUG
+    #icon = danishaddons.ADDON_PATH + "/resources/logos/%s.png" % SLUG
 
     for m in re.finditer('<a href="\?video_id=[0-9]+"><img src="(.*?)" alt=".*?" /></a>.*?<h1 class="headline"><a href="\?video_id=([0-9]+)">(.*?)</a></h1>.*?<a href=".*?">(.*?)</a>', html, re.DOTALL):
         icon = m.group(1)

@@ -60,7 +60,7 @@ CHANNELS = [
 def showChannels():
 
     for idx, c in enumerate(CHANNELS):
-        icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
+        icon = danishaddons.ADDON_PATH + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
 
         if c['urls'].has_key(getQuality()):
             item = xbmcgui.ListItem(c['name'], iconImage = icon)
@@ -73,7 +73,7 @@ def playChannel(idx):
     c = CHANNELS[int(idx)]
     q = getQuality()
 
-    icon = os.getcwd() + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
+    icon = danishaddons.ADDON_PATH + "/resources/logos/" + c['name'].replace(" ", "_") + ".png"
 
     if c['urls'].has_key(q):
         item = xbmcgui.ListItem(c['name'], thumbnailImage = icon)

@@ -35,7 +35,7 @@ REGIONS = [
 def showRegions():
     for r in REGIONS:
         if r['slug'] is not None:
-            icon = os.getcwd() + "/resources/logos/%s.png" % r['slug']
+            icon = danishaddons.ADDON_PATH + "/resources/logos/%s.png" % r['slug']
             item = xbmcgui.ListItem(r['name'], iconImage = icon)
             url = danishaddons.ADDON_PATH + '?slug=' + r['slug']
             xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item, True)

@@ -1,4 +1,3 @@
-import os
 import sys
 import unittest
 
@@ -13,7 +12,7 @@ import addon
 class TestDrDkPiratTv(unittest.TestCase):
 
     def setUp(self):
-        danishaddons.init([os.getcwd(), '12345', ''])
+        danishaddons.init(['.', '12345', ''])
         xbmcplugin.items = list()
 
     def testShowPrograms(self):

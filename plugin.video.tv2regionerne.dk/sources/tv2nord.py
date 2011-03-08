@@ -29,7 +29,7 @@ def showClips(date=None):
 
     html = danishaddons.web.downloadAndCacheUrl(baseUrl, os.path.join(
             danishaddons.ADDON_DATA_PATH, 'tv2nord_%s.html' % dateSlug), 60)
-    icon = os.getcwd() + "/resources/logos/tv2nord.png"
+    icon = danishaddons.ADDON_PATH + "/resources/logos/tv2nord.png"
 
     for m in re.finditer('<a href="(%s.*?)">(.*?)</a>' % ARCHIVE_URL, html):
         clipUrl = m.group(1)

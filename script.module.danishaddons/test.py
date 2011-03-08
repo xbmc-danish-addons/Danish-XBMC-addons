@@ -20,11 +20,11 @@ class TestDanishAddons(unittest.TestCase):
         expectedAddonId = 'script.module.danishaddons'
 
         self.assertEqual(None, danishaddons.ADDON_ID, msg = 'Expected ADDON_ID to be None before call to init()')
-        danishaddons.init([os.getcwd(), '12345', '?key1=value1&key2=value2'])
+        danishaddons.init(['.', '12345', '?key1=value1&key2=value2'])
         self.assertEqual(expectedAddonId, danishaddons.ADDON_ID, msg = 'Got unexpected ADDON_ID')
         self.assertTrue(isinstance(danishaddons.ADDON, xbmcaddon.Addon), msg = 'Expected instance of xbmcaddon.Addon class')
         self.assertEqual('/tmp/%s' % expectedAddonId, danishaddons.ADDON_DATA_PATH)
-        self.assertEqual(os.getcwd(), danishaddons.ADDON_PATH)
+        self.assertEqual('.', danishaddons.ADDON_PATH)
         self.assertEqual(12345, danishaddons.ADDON_HANDLE)
         self.assertEqual({'key1' : 'value1', 'key2' : 'value2'}, danishaddons.ADDON_PARAMS)
 

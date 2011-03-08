@@ -28,7 +28,7 @@ def showClips(date=None):
 
     html = danishaddons.web.downloadAndCacheUrl(baseUrl, os.path.join(
             danishaddons.ADDON_DATA_PATH, '%s_%s.html' % (SLUG, dateSlug)), 60)
-    icon = os.getcwd() + "/resources/logos/tv2bornholm.png"
+    icon = danishaddon.ADDON_PATH + "/resources/logos/tv2bornholm.png"
 
     for m in re.finditer('<input type="hidden" id="TCin_[0-9]+" name="TCin_[0-9]+" value="([^"]+)" /><input type="hidden" id="varighed_[0-9]+" name="varighed_[0-9]+" value="([^"]+)" /><input type="hidden" id="filnavn_[0-9]+" name="filnavn_[0-9]+" value="([^"]+)" /><a class=programtitel href="\?([^"]+)".*?<b>(.*?)</b>.*?<td valign=top class=programtekst>(.*?)</td>', html, re.DOTALL):
         start = m.group(1)

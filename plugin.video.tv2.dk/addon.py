@@ -33,7 +33,7 @@ BASE_URL = 'http://video.tv2.dk/js/video-list.js.php/index.js'
 
 def showOverview():
     json = loadJson()
-    icon = os.path.join(os.getcwd(), 'icon.png')
+    icon = os.path.join(danishaddons.ADDON_PATH, 'icon.png')
 
     for key in json.keys():
         if KEY_TO_TITLE.has_key(key):
