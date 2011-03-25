@@ -27,28 +27,28 @@ class YouseeTv:
         urllib2.install_opener(opener)
 
         if danishaddons.ADDON.getSetting('username') == '' or danishaddons.ADDON.getSetting('password') == '':
+            # username and password is required
             xbmcgui.Dialog().ok(danishaddons.msg(30001), danishaddons.msg(30002), danishaddons.msg(30003))
             danishaddons.ADDON.openSettings()
 
     def showChannels(self):
         doc = self.loadDocForChannel()
-        if doc is None:
-            return
+        if doc is not None:
+            fanArt = os.path.join(danishaddons.ADDON.getAddonInfo('path'), '/fanart.jpg')
 
-        fanArt = os.path.join(danishaddons.ADDON.getAddonInfo('path'), '/fanart.jpg')
+            for channel in doc.findall('channels/channel'):
+                name = channel.findtext('name')
+                logoLarge = channel.findtext('logo_large')
 
-        for channel in doc.findall('channels/channel'):
-            name = channel.findtext('name')
-            logoLarge = channel.findtext('logo_large')
+                item = xbmcgui.ListItem(name, iconImage = logoLarge)
+                item.setProperty('Fanart_Image', fanArt)
+                url = danishaddons.ADDON_PATH + '?xml=' + channel.findtext('xml').replace(' ', '%20')
+                xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item)
 
-            item = xbmcgui.ListItem(name, iconImage = logoLarge)
-            item.setProperty('Fanart_Image', fanArt)
-            url = danishaddons.ADDON_PATH + '?xml=' + channel.findtext('xml').replace(' ', '%20')
-            xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item)
-
-        xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE)
+        xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE, succeeded = doc is not None)
 
     def playChannel(self, xmlUrl):
+        print "xmlUrl = %s" % xmlUrl
         xml = danishaddons.web.downloadUrl(xmlUrl)
         doc = ElementTree.fromstring(xml)
 
@@ -56,14 +56,14 @@ class YouseeTv:
             streamIdx = 1
         else:
             streamIdx = 0
-        
+
         stream = doc.findall('server/streams/stream/name')[streamIdx].text
         swfUrl = "http://yousee.tv/design/swf/YouSeeVideoPlayer_beta.swf"
         pageUrl = "http://yousee.tv/livetv/"
-        tcUrl = "rtmpe://live.fmis.yousee.tv/live"
+        tcUrl = doc.findtext('server/url')
         conn = 'S:serverurl:%s' % tcUrl
 
-        rtmpUrl = 'rtmpe://live.fmis.yousee.tv/live/%s swfUrl=%s swfVfy=1 pageUrl=%s tcUrl=%s conn=%s' % (stream, swfUrl, pageUrl, tcUrl, conn)
+        rtmpUrl = '%s/%s swfUrl=%s swfVfy=1 pageUrl=%s tcUrl=%s conn=%s' % (tcUrl, stream, swfUrl, pageUrl, tcUrl, conn)
         print "Attempting to play url: %s" % rtmpUrl
 
         item = xbmcgui.ListItem(doc.findtext('channelname'), thumbnailImage = doc.findtext('channellogo'))
@@ -71,6 +71,7 @@ class YouseeTv:
         xbmc.Player().play(rtmpUrl, item)
 
     def login(self):
+        print "Logging in..."
         username = danishaddons.ADDON.getSetting('username')
         password = danishaddons.ADDON.getSetting('password')
 
@@ -90,15 +91,16 @@ class YouseeTv:
                 xbmcgui.Dialog().ok(danishaddons.msg(30010), danishaddons.msg(30011))
                 return None
 
+        print "Download channel data from URL = %s" %(URL % slug)
         try:
-	        xml = danishaddons.web.downloadUrl(URL % slug)
-        except URLError, ex:
+            xml = danishaddons.web.downloadUrl(URL % slug)
+        except urllib2.URLError:
             # Session expired; retry with a forced login
             if not retry:
                 self.cookieJar.clear_session_cookies()
                 self.loadDocForChannel(slug, retry = True)
             else:
-                xbmcgui.Dialog().ok('Unable to retries channel data', 'You might not have access from this connection?')
+                xbmcgui.Dialog().ok(danishaddons.msg(30010), danishaddons.msg(30011))
                 return None
 
         doc = ElementTree.fromstring(xml)
@@ -125,6 +127,8 @@ class LoginHTTPRedirectHandler(urllib2.HTTPRedirectHandler):
 
 if __name__ == '__main__':
     danishaddons.init(sys.argv)
+
+    print "ADDON_PARAMS = %s" % danishaddons.ADDON_PARAMS
 
     ytv = YouseeTv()
     if danishaddons.ADDON_PARAMS.has_key('xml'):

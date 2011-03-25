@@ -1,3 +1,6 @@
+[B]Version 1.0.2[/B]
+- Improved login logic
+
 [B]Version 1.0.1[/B]
 - Updated to use new login system on yousee.tv
 

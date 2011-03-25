@@ -23,7 +23,7 @@ def addDirectoryItem(handle, url, item, isFolder = True):
         print "ListItem: %s" % item.title
         print "\turl: %s" % item.url
 
-def endOfDirectory(handle):
+def endOfDirectory(handle, succeeded = True, updateLising = False, cacheToDisc = True):
     pass
 
 def setResolvedUrl(handle, success, item):

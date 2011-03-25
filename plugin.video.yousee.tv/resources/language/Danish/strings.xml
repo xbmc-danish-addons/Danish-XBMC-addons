@@ -6,4 +6,9 @@
 
 	<string id="30010">Login fejl</string>
 	<string id="30011">Dit login blev afvist af YouSee. Kontroller indstilligerne.</string>
+
+    <string id="30100">YouSee</string>
+    <string id="30101">Brugernavn</string>
+    <string id="30102">Adgangskode</string>
+    <string id="30103">Kvalitet (kbit)</string>
 </strings>
