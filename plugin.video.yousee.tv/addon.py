@@ -21,7 +21,7 @@ class YouseeTv:
         self.cookieJar = cookielib.LWPCookieJar()
         self.cookieFile = os.path.join(danishaddons.ADDON_DATA_PATH, 'cookies.lwp')
         if os.path.isfile(self.cookieFile):
-            self.cookieJar.load(self.cookieFile)
+            self.cookieJar.load(self.cookieFile, ignore_discard = True, ignore_expires = True)
 
         opener = urllib2.build_opener(LoginHTTPRedirectHandler, urllib2.HTTPCookieProcessor(self.cookieJar))
         urllib2.install_opener(opener)
@@ -79,9 +79,9 @@ class YouseeTv:
         res = urllib2.urlopen(req)
         res.close()
 
-        self.cookieJar.save(self.cookieFile)
+        self.cookieJar.save(self.cookieFile, ignore_discard = True, ignore_expires = True)
 
-    def loadDocForChannel(self, slug = 'dr1'):
+    def loadDocForChannel(self, slug = 'dr1', retry = False):
         if not self.isLoggedIn():
             self.login()
 
@@ -90,14 +90,23 @@ class YouseeTv:
                 xbmcgui.Dialog().ok(danishaddons.msg(30010), danishaddons.msg(30011))
                 return None
 
-        xml = danishaddons.web.downloadUrl(URL % slug)
+        try:
+	        xml = danishaddons.web.downloadUrl(URL % slug)
+        except URLError, ex:
+            # Session expired; retry with a forced login
+            if not retry:
+                self.cookieJar.clear_session_cookies()
+                self.loadDocForChannel(slug, retry = True)
+            else:
+                xbmcgui.Dialog().ok('Unable to retries channel data', 'You might not have access from this connection?')
+                return None
+
         doc = ElementTree.fromstring(xml)
         return doc
 
     def isLoggedIn(self):
         loggedIn = False
         for cookie in self.cookieJar:
-            print cookie
             if cookie.name == 'yspro':
                 loggedIn = True
                 break
