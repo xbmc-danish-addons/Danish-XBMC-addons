@@ -42,22 +42,31 @@ class YouseeTv:
 
                 item = xbmcgui.ListItem(name, iconImage = logoLarge)
                 item.setProperty('Fanart_Image', fanArt)
-                url = danishaddons.ADDON_PATH + '?xml=' + channel.findtext('xml').replace(' ', '%20')
+                url = danishaddons.ADDON_PATH + '?id=' + channel.findtext('id').replace(' ', '%20')
                 xbmcplugin.addDirectoryItem(danishaddons.ADDON_HANDLE, url, item)
 
         xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE, succeeded = doc is not None)
 
-    def playChannel(self, xmlUrl):
-        print "xmlUrl = %s" % xmlUrl
-        xml = danishaddons.web.downloadUrl(xmlUrl)
-        doc = ElementTree.fromstring(xml)
+    def playChannel(self, channelId):
+        print "channelId = %s" % channelId
+        doc = self.loadDocForChannel(channelId)
 
         if danishaddons.ADDON.getSetting('quality') == '1200':
             streamIdx = 1
         else:
             streamIdx = 0
 
-        stream = doc.findall('server/streams/stream/name')[streamIdx].text
+        print "streamIdx = %d" % streamIdx
+
+        streams = doc.findall('server/streams/stream/name')
+        print "streams = %s" % streams
+
+        if len(streams) == 1:
+            stream = streams[0].text
+        else:
+            stream = streams[streamIdx].text            
+        print "stream = %s" % stream
+
         swfUrl = "http://yousee.tv/design/swf/YouSeeVideoPlayer_beta.swf"
         pageUrl = "http://yousee.tv/livetv/"
         tcUrl = doc.findtext('server/url')
@@ -91,9 +100,10 @@ class YouseeTv:
                 xbmcgui.Dialog().ok(danishaddons.msg(30010), danishaddons.msg(30011))
                 return None
 
-        print "Download channel data from URL = %s" %(URL % slug)
+        print "Downloading channel data from URL = %s" %(URL % slug)
         try:
             xml = danishaddons.web.downloadUrl(URL % slug)
+            print "Downloaded channel XML: %s" % xml
         except urllib2.URLError:
             # Session expired; retry with a forced login
             if not retry:
@@ -131,8 +141,8 @@ if __name__ == '__main__':
     print "ADDON_PARAMS = %s" % danishaddons.ADDON_PARAMS
 
     ytv = YouseeTv()
-    if danishaddons.ADDON_PARAMS.has_key('xml'):
-        ytv.playChannel(danishaddons.ADDON_PARAMS['xml'])
+    if danishaddons.ADDON_PARAMS.has_key('id'):
+        ytv.playChannel(danishaddons.ADDON_PARAMS['id'])
     else:
         ytv.showChannels()
 
