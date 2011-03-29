@@ -38,6 +38,9 @@ class Control():
     def setLabel(self, label = None, font = None, textColor = None, disabledColor = None, shadowColor = None, focusedColor = None):
         pass
 
+    def setVisible(self, visible):
+        pass
+
 class Dialog():
     def __init__(self):
         pass

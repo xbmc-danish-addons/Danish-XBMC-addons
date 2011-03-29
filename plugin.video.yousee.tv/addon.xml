@@ -9,7 +9,7 @@
         <provides>video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">Web-tv fra YouSee</summary>
+        <summary lang="en">Web-tv from YouSee</summary>
         <summary lang="da">Web-tv fra YouSee</summary>
         <description lang="en">Watch the channel you have access to on YouSee.tv. Login required.</description>
         <description lang="da">Se de tv kanaler som du har adgang til via YouSee.tv. Login påkrævet.</description>
