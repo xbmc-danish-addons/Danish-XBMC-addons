@@ -1,4 +1,7 @@
-[B]Version 1.2.1[/B]
+[B]Version 1.2.3[/B]
+- Removed all usages of os.getcwd()
+
+[B]Version 1.2.2[/B]
 - Prepare for official repository
 
 [B]Version 1.2.1[/B]

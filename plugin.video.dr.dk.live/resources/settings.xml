@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
-	<category label="Generelt">
-		<setting id="quality" label="Kvalitet" type="labelenum" default="High" values="High|Medium|Low" />
+	<category label="30100">
+		<setting id="quality" label="30101" type="labelenum" default="High" values="High|Medium|Low" />
 	</category>
 </settings>
 
