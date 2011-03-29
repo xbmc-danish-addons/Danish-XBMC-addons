@@ -1,3 +1,6 @@
+[B]Version 1.0.3[/B]
+- Fixed playback when only one stream is available
+
 [B]Version 1.0.2[/B]
 - Improved login logic
 

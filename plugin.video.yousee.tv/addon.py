@@ -48,7 +48,6 @@ class YouseeTv:
         xbmcplugin.endOfDirectory(danishaddons.ADDON_HANDLE, succeeded = doc is not None)
 
     def playChannel(self, channelId):
-        print "channelId = %s" % channelId
         doc = self.loadDocForChannel(channelId)
 
         if danishaddons.ADDON.getSetting('quality') == '1200':
@@ -56,16 +55,11 @@ class YouseeTv:
         else:
             streamIdx = 0
 
-        print "streamIdx = %d" % streamIdx
-
         streams = doc.findall('server/streams/stream/name')
-        print "streams = %s" % streams
-
         if len(streams) == 1:
             stream = streams[0].text
         else:
             stream = streams[streamIdx].text            
-        print "stream = %s" % stream
 
         swfUrl = "http://yousee.tv/design/swf/YouSeeVideoPlayer_beta.swf"
         pageUrl = "http://yousee.tv/livetv/"
@@ -73,14 +67,13 @@ class YouseeTv:
         conn = 'S:serverurl:%s' % tcUrl
 
         rtmpUrl = '%s/%s swfUrl=%s swfVfy=1 pageUrl=%s tcUrl=%s conn=%s' % (tcUrl, stream, swfUrl, pageUrl, tcUrl, conn)
-        print "Attempting to play url: %s" % rtmpUrl
+        xbmc.log("Attempting to play url: %s" % rtmpUrl)
 
         item = xbmcgui.ListItem(doc.findtext('channelname'), thumbnailImage = doc.findtext('channellogo'))
         item.setProperty("IsLive", "true")
         xbmc.Player().play(rtmpUrl, item)
 
     def login(self):
-        print "Logging in..."
         username = danishaddons.ADDON.getSetting('username')
         password = danishaddons.ADDON.getSetting('password')
 
@@ -100,10 +93,8 @@ class YouseeTv:
                 xbmcgui.Dialog().ok(danishaddons.msg(30010), danishaddons.msg(30011))
                 return None
 
-        print "Downloading channel data from URL = %s" %(URL % slug)
         try:
             xml = danishaddons.web.downloadUrl(URL % slug)
-            print "Downloaded channel XML: %s" % xml
         except urllib2.URLError:
             # Session expired; retry with a forced login
             if not retry:
@@ -129,16 +120,12 @@ class LoginHTTPRedirectHandler(urllib2.HTTPRedirectHandler):
     def http_error_302(self, req, fp, code, msg, headers):
         # patch url to inject / before parameters to avoid [...].dk?param
         url = headers.getheaders('location')[0].replace('?', '/?')
-        print "url: %s" % url
-
         new = self.redirect_request(req, fp, code, msg, headers, url)
         return self.parent.open(new)
 
 
 if __name__ == '__main__':
     danishaddons.init(sys.argv)
-
-    print "ADDON_PARAMS = %s" % danishaddons.ADDON_PARAMS
 
     ytv = YouseeTv()
     if danishaddons.ADDON_PARAMS.has_key('id'):
