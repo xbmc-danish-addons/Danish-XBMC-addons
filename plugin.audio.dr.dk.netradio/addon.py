@@ -9,6 +9,8 @@ import danishaddons
 import danishaddons.web
 
 BASE_URL = 'http://www.dr.dk/netradio/wmp.asp'
+NEW_URL = 'http://www.dr.dk/LiveNetRadio/datafeed/channels.js.drxml'
+
 
 def showChannels():
     icon = os.path.join(danishaddons.ADDON_PATH, 'icon.png')
