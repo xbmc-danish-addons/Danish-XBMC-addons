@@ -1,6 +1,0 @@
-[B]Version 1.1.0 - 2011-08-15[/B]
-- Fixed icon image url
-- Removed dependency on script.module.danishaddons
-
-[B]Version 1.0.0[/B]
-- Initial version
