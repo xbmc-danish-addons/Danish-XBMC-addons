@@ -1,3 +1,6 @@
+[B]Version 1.1.0 - 2011-11-01[/B]
+- Removed use of script.module.danishaddons
+
 [B]Version 1.0.2[/B]
 - Handle RTMP URL's with spaces, fx Alpha Beat
 
