@@ -12,7 +12,7 @@ from elementtree import ElementTree
 BASE_URL = 'http://www.vegaplayer.dk/%s'
 CONCERTS_URL = BASE_URL % 'concerts.jsp'
 CONCERT_URL = BASE_URL % 'concert.jsp?id=%s'
-RTMP_URL = 'rtmp://vegasrv1.dedicated.cohaesio.net/vod/vod/%s'
+RTMP_URL = 'rtmp://vegasrv1.dedicated.cohaesio.net/vod/'
 
 class VegaPlayerAddon(object):
     def listConcerts(self):
@@ -51,8 +51,8 @@ class VegaPlayerAddon(object):
         startTimes.append(startTimes[len(startTimes)-1])
 
         for idx, track in enumerate(doc.findall('tracks/track')):
-            startSeconds = int(track.attrib.get('startms')) / 1000
-            durationSeconds = startTimes[idx + 1] - startSeconds
+            startMillis = int(track.attrib.get('startms'))
+            durationSeconds = startTimes[idx + 1] - (startMillis / 1000)
 
             infoLabels = {
                 'title' : artistPrefix % track.findtext('name'),
@@ -61,37 +61,18 @@ class VegaPlayerAddon(object):
             }
 
             item = xbmcgui.ListItem(infoLabels['title'], iconImage=teaserImage, thumbnailImage=teaserImage)
-            item.setProperty('Fanart_Image', teaserImage)
             item.setInfo('video', infoLabels)
-            url = PATH + '?uuid=%s&start=%d' % (uuid, startSeconds)
-            #url = RTMP_URL % doc.findtext('concert/stream')[4:].replace(' ', '%20')
-            #if startSeconds > 0:
-            #    url += " start=%d" % startSeconds
+            item.setProperty('Fanart_Image', teaserImage)
+            item.setProperty('PlayPath',  doc.findtext('concert/stream')[4:])
+            item.setProperty('tcUrl', RTMP_URL)
+            url = RTMP_URL
+            if startMillis > 0:
+                url += " start=%d" % startMillis
+            print url
             xbmcplugin.addDirectoryItem(HANDLE, url, item)
 
         xbmcplugin.endOfDirectory(HANDLE)
 
-
-    def playVideo(self, uuid, startSeconds):
-        concertXml = self.downloadUrl(CONCERT_URL % uuid)
-        doc = ElementTree.fromstring(concertXml)
-
-        description = doc.findtext('concert/name') + ' - ' + (doc.findtext('concert/venue') + ' - ' + doc.findtext('concert/date'))
-        url = RTMP_URL % doc.findtext('concert/stream')[4:].replace(' ', '%20')
-
-        teaserImage = BASE_URL % doc.findtext('concert/teaserimage')
-        item = xbmcgui.ListItem(description, iconImage=teaserImage, thumbnailImage=teaserImage)
-
-        player = xbmc.Player()
-        player.play(url, item)
-
-        startTime = int(startSeconds)
-        if startTime > 0:
-            for i in range(5):
-                if player.isPlaying():
-                    player.seekTime(startTime)
-                    break
-                xbmc.sleep(1000)
 
     def downloadUrl(self, url):
         u = urllib2.urlopen(url)
@@ -106,12 +87,8 @@ if __name__ == '__main__':
     PARAMS = urlparse.parse_qs(sys.argv[2][1:])
 
     vp = VegaPlayerAddon()
-    if PARAMS.has_key('start'):
-        vp.playVideo(PARAMS['uuid'][0], PARAMS['start'][0])
-
-    elif PARAMS.has_key('uuid'):
+    if PARAMS.has_key('uuid'):
         vp.listConcert(PARAMS['uuid'][0])
-
     else:
         vp.listConcerts()
 
