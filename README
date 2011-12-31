@@ -1,8 +1,13 @@
-This is an unofficial collection of danish XBMC addons.
+This was the old git repository for a number of the danish XBMC addons.
 
-It is no longer possible to used our github as a XBMC repository.
-We are working on getting the addons added to the official repository,
-so they can be installed from within XBMC.
+They have now been extracted to seperate repositories at:
+* https://github.com/xbmc-danish-addons/
+* https://github.com/twinther/
 
-If you are missing an addon feel free to download the latests zips from:
-http://tommy.winther.nu/xbmc/
+Usually all addons can be installed directly from XBMC.
+
+If you have comments or suggestions for these addons, please feel free
+to participate in the debate on my blog at http://tommy.winther.nu
+
+If you are looking for xbmcstubs, I have instead forked Tenzer's repo:
+https://github.com/twinther/xbmcstubs
